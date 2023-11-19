@@ -1,0 +1,39 @@
+name: System tests
+on: [ push, pull_request_target ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Set up
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Jenkins
+        run: docker build -t jenkins-rest/jenkins src/main/docker
+
+      - name: Run Jenkins
+        run: docker run -d --rm -p 8080:8080 --name jenkins-rest jenkins-rest/jenkins
+
+      - name: Build project
+        run: mvn -B -Pcoverage verify
+
+      - name: Stop Jenkins
+        run: docker stop jenkins-rest
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: SonarQube Quality Gate
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
