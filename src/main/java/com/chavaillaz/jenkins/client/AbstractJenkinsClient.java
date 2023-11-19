@@ -1,69 +1,50 @@
 package com.chavaillaz.jenkins.client;
 
-import static com.chavaillaz.jenkins.client.Authentication.AuthenticationType.ANONYMOUS;
-import static com.chavaillaz.jenkins.client.Authentication.AuthenticationType.PASSWORD;
-import static com.chavaillaz.jenkins.client.Authentication.AuthenticationType.TOKEN;
+import static com.chavaillaz.client.Authentication.AuthenticationType.PASSWORD;
+import static com.chavaillaz.client.Authentication.AuthenticationType.TOKEN;
 
-import com.chavaillaz.jenkins.utility.ProxyConfiguration;
+import com.chavaillaz.client.AbstractClient;
+import com.chavaillaz.client.utility.LazyCachedObject;
 
-public abstract class AbstractJenkinsClient<C> implements JenkinsClient {
+/**
+ * Abstract class implementing common parts for Jenkins clients.
+ *
+ * @param <C> The HTTP client type
+ */
+public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, JenkinsAuthentication, JenkinsClient> implements JenkinsClient {
 
-    protected final String jenkinsUrl;
-    protected Authentication authentication;
-    protected ProxyConfiguration proxy;
-
-    protected JobClient cacheJobClient;
-    protected PipelineClient cachePipelineClient;
-    protected PluginClient cachePluginClient;
-    protected QueueClient cacheQueueClient;
-    protected StatisticsClient cacheStatisticsClient;
-    protected SystemClient cacheSystemClient;
-    protected UserClient cacheUserClient;
-
-    /**
-     * Creates a new Jenkins client.
-     *
-     * @param jenkinsUrl The URL of the Jenkins server to query in this client
-     */
-    protected AbstractJenkinsClient(String jenkinsUrl) {
-        this.jenkinsUrl = jenkinsUrl;
-        withAnonymousAuthentication();
-    }
+    protected LazyCachedObject<JobClient> cacheJobClient = new LazyCachedObject<>();
+    protected LazyCachedObject<PipelineClient> cachePipelineClient = new LazyCachedObject<>();
+    protected LazyCachedObject<PluginClient> cachePluginClient = new LazyCachedObject<>();
+    protected LazyCachedObject<QueueClient> cacheQueueClient = new LazyCachedObject<>();
+    protected LazyCachedObject<StatisticsClient> cacheStatisticsClient = new LazyCachedObject<>();
+    protected LazyCachedObject<SystemClient> cacheSystemClient = new LazyCachedObject<>();
+    protected LazyCachedObject<UserClient> cacheUserClient = new LazyCachedObject<>();
 
     /**
-     * Creates a new HTTP client that will be used to communicate with Jenkins REST endpoints.
+     * Creates a new abstract client.
      *
-     * @return The HTTP client
+     * @param baseUrl The base URL of the endpoints
      */
-    protected abstract C newHttpClient();
-
-    @Override
-    public JenkinsClient withProxy(String host, Integer port) {
-        this.proxy = ProxyConfiguration.from(host, port);
-        return this;
-    }
-
-    @Override
-    public JenkinsClient withProxy(String url) {
-        this.proxy = ProxyConfiguration.from(url);
-        return this;
+    protected AbstractJenkinsClient(String baseUrl) {
+        super(baseUrl);
     }
 
     @Override
     public JenkinsClient withTokenAuthentication(String username, String token) {
-        this.authentication = new Authentication(TOKEN, username, token);
+        this.authentication = new JenkinsAuthentication(TOKEN, username, token);
         return this;
     }
 
     @Override
     public JenkinsClient withUserAuthentication(String username, String password) {
-        this.authentication = new Authentication(PASSWORD, username, password);
+        this.authentication = new JenkinsAuthentication(PASSWORD, username, password);
         return this;
     }
 
     @Override
     public JenkinsClient withAnonymousAuthentication() {
-        this.authentication = new Authentication(ANONYMOUS);
+        this.authentication = new JenkinsAuthentication();
         return this;
     }
 

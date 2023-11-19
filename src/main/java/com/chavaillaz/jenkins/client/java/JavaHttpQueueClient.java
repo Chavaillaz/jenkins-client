@@ -1,16 +1,19 @@
 package com.chavaillaz.jenkins.client.java;
 
-import static com.chavaillaz.jenkins.client.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.java.JavaHttpUtils.ofFormData;
 
 import java.net.http.HttpClient;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.jenkins.client.Authentication;
+import com.chavaillaz.jenkins.client.JenkinsAuthentication;
 import com.chavaillaz.jenkins.client.QueueClient;
 import com.chavaillaz.jenkins.domain.QueueItem;
 import com.chavaillaz.jenkins.domain.QueueItems;
 
+/**
+ * Implementation of {@link QueueClient} for Java HTTP.
+ */
 public class JavaHttpQueueClient extends AbstractJavaHttpClient implements QueueClient {
 
     /**
@@ -20,7 +23,7 @@ public class JavaHttpQueueClient extends AbstractJavaHttpClient implements Queue
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpQueueClient(HttpClient client, String baseUrl, Authentication authentication) {
+    public JavaHttpQueueClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

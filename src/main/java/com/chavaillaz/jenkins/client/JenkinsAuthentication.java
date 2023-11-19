@@ -1,20 +1,20 @@
 package com.chavaillaz.jenkins.client;
 
-import static com.chavaillaz.jenkins.utility.Utils.encodeBase64;
-
+import java.util.Base64;
 import java.util.function.Supplier;
 
+import com.chavaillaz.client.Authentication;
 import com.chavaillaz.jenkins.domain.Crumb;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
-@RequiredArgsConstructor
-public class Authentication {
+/**
+ * Implementation of the authentication specificities for Jenkins.
+ */
+@Getter
+@NoArgsConstructor
+public class JenkinsAuthentication extends Authentication {
 
-    private final AuthenticationType type;
-    private String username;
-    private String password;
     private Crumb crumb;
 
     /**
@@ -24,10 +24,18 @@ public class Authentication {
      * @param username The username or {@code null} for anonymous access
      * @param password The password, token or {@code null} for anonymous access
      */
-    public Authentication(AuthenticationType type, String username, String password) {
-        this(type);
-        this.username = username;
-        this.password = password;
+    public JenkinsAuthentication(AuthenticationType type, String username, String password) {
+        super(type, username, password);
+    }
+
+    /**
+     * Encodes a {@link String} to base 64 format.
+     *
+     * @param value The value to encode
+     * @return The encoded value
+     */
+    private static String encodeBase64(String value) {
+        return Base64.getEncoder().encodeToString(value.getBytes());
     }
 
     /**
@@ -36,9 +44,9 @@ public class Authentication {
      * @return The authorization header
      */
     public String getAuthorizationHeader() {
-        return switch (type) {
+        return switch (getType()) {
             case ANONYMOUS -> encodeBase64("anonymous:");
-            case PASSWORD, TOKEN -> "Basic " + encodeBase64(username + ":" + password);
+            case PASSWORD, TOKEN -> "Basic " + encodeBase64(getUsername() + ":" + getPassword());
         };
     }
 
@@ -47,12 +55,6 @@ public class Authentication {
             this.crumb = supplier.get();
         }
         return this.crumb;
-    }
-
-    public enum AuthenticationType {
-        ANONYMOUS,
-        PASSWORD,
-        TOKEN
     }
 
 }

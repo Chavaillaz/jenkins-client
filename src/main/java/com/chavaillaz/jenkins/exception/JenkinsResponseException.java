@@ -2,13 +2,11 @@ package com.chavaillaz.jenkins.exception;
 
 import static com.chavaillaz.jenkins.client.JenkinsConstant.extractHtmlErrors;
 
+import com.chavaillaz.client.exception.ResponseException;
 import lombok.Getter;
 
 @Getter
-public class ResponseException extends JenkinsClientException {
-
-    private final Integer statusCode;
-    private final String body;
+public class JenkinsResponseException extends ResponseException {
 
     /**
      * Creates a new Jenkins response exception, meaning the request didn't return a success code.
@@ -17,10 +15,8 @@ public class ResponseException extends JenkinsClientException {
      * @param statusCode The status code
      * @param body       The content body
      */
-    public ResponseException(int statusCode, String body) {
-        super(errorMessage(statusCode, body));
-        this.statusCode = statusCode;
-        this.body = body;
+    public JenkinsResponseException(int statusCode, String body) {
+        super(statusCode, body, errorMessage(statusCode, body));
     }
 
     private static String errorMessage(Integer statusCode, String content) {

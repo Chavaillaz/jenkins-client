@@ -1,9 +1,9 @@
 package com.chavaillaz.jenkins.client.java;
 
+import static com.chavaillaz.client.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.utility.Utils.queryFromKeyValue;
 import static com.chavaillaz.jenkins.client.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.jenkins.client.JenkinsConstant.LIST_VIEW;
-import static com.chavaillaz.jenkins.client.java.JavaHttpUtils.ofFormData;
-import static com.chavaillaz.jenkins.client.java.JavaHttpUtils.queryFromKeyValue;
 import static java.net.http.HttpRequest.BodyPublishers.noBody;
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
@@ -12,7 +12,8 @@ import java.net.http.HttpClient;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.jenkins.client.Authentication;
+import com.chavaillaz.client.utility.Utils;
+import com.chavaillaz.jenkins.client.JenkinsAuthentication;
 import com.chavaillaz.jenkins.client.JobClient;
 import com.chavaillaz.jenkins.domain.BuildInfo;
 import com.chavaillaz.jenkins.domain.CoverageReport;
@@ -21,11 +22,13 @@ import com.chavaillaz.jenkins.domain.JobInfo;
 import com.chavaillaz.jenkins.domain.Path;
 import com.chavaillaz.jenkins.domain.TestReport;
 import com.chavaillaz.jenkins.domain.ViewInfo;
-import com.chavaillaz.jenkins.utility.Utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 
+/**
+ * Implementation of {@link JobClient} for Java HTTP.
+ */
 public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClient {
 
     /**
@@ -35,7 +38,7 @@ public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClie
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpJobClient(HttpClient client, String baseUrl, Authentication authentication) {
+    public JavaHttpJobClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 
@@ -57,31 +60,31 @@ public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClie
     @Override
     public CompletableFuture<String> getFolderConfiguration(Path path) {
         return sendAsync(requestBuilder(URL_FOLDER_CONFIGURATION, path).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobConfiguration(Path path, String jobName) {
         return sendAsync(requestBuilder(URL_JOB_CONFIGURATION, path, jobName).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override
     public CompletableFuture<String> getViewConfiguration(Path path, String viewName) {
         return sendAsync(requestBuilder(URL_VIEW_CONFIGURATION, path, viewName).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobDescription(Path path, String jobName) {
         return sendAsync(requestBuilder(URL_JOB_DESCRIPTION, path, jobName).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override
     public CompletableFuture<Integer> getLastBuildNumber(Path path, String jobName) {
         return sendAsync(requestBuilder(URL_JOB_LAST_BUILD_NUMBER, path, jobName).GET())
-                .thenApply(Utils::inputStreamToString)
+                .thenApply(Utils::readInputStream)
                 .thenApply(NumberUtils::toInt)
                 .exceptionally(exception -> null);
     }
@@ -111,13 +114,13 @@ public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClie
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int bufferOffset) {
         return sendAsync(requestBuilder(URL_JOB_LAST_BUILD_CONSOLE, path, jobName, bufferOffset).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int buildNumber, int bufferOffset) {
         return sendAsync(requestBuilder(URL_JOB_BUILD_CONSOLE, path, jobName, buildNumber, bufferOffset).GET())
-                .thenApply(Utils::inputStreamToString);
+                .thenApply(Utils::readInputStream);
     }
 
     @Override

@@ -3,10 +3,13 @@ package com.chavaillaz.jenkins.client.java;
 import java.net.http.HttpClient;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.jenkins.client.Authentication;
+import com.chavaillaz.jenkins.client.JenkinsAuthentication;
 import com.chavaillaz.jenkins.client.StatisticsClient;
 import com.chavaillaz.jenkins.domain.Load;
 
+/**
+ * Implementation of {@link StatisticsClient} for Java HTTP.
+ */
 public class JavaHttpStatisticsClient extends AbstractJavaHttpClient implements StatisticsClient {
 
     /**
@@ -16,7 +19,7 @@ public class JavaHttpStatisticsClient extends AbstractJavaHttpClient implements 
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpStatisticsClient(HttpClient client, String baseUrl, Authentication authentication) {
+    public JavaHttpStatisticsClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

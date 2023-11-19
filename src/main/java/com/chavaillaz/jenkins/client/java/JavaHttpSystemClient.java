@@ -7,10 +7,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.jenkins.client.Authentication;
+import com.chavaillaz.jenkins.client.JenkinsAuthentication;
 import com.chavaillaz.jenkins.client.SystemClient;
 import com.chavaillaz.jenkins.domain.SystemInfo;
 
+/**
+ * Implementation of {@link SystemClient} for Java HTTP.
+ */
 public class JavaHttpSystemClient extends AbstractJavaHttpClient implements SystemClient {
 
     /**
@@ -20,7 +23,7 @@ public class JavaHttpSystemClient extends AbstractJavaHttpClient implements Syst
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpSystemClient(HttpClient client, String baseUrl, Authentication authentication) {
+    public JavaHttpSystemClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

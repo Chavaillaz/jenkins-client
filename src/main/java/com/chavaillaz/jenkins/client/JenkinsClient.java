@@ -1,6 +1,8 @@
 package com.chavaillaz.jenkins.client;
 
-public interface JenkinsClient {
+import com.chavaillaz.client.Client;
+
+public interface JenkinsClient extends Client<JenkinsClient> {
 
     String SET_COOKIE = "Set-Cookie";
     String JENKINS_COOKIES_JSESSIONID = "JSESSIONID";
@@ -53,47 +55,5 @@ public interface JenkinsClient {
      * @return THe user client
      */
     UserClient getUserClient();
-
-    /**
-     * Sets the proxy to use for all requests to the Jenkins API.
-     *
-     * @param host The proxy host
-     * @param port The proxy port
-     * @return The current client instance
-     */
-    JenkinsClient withProxy(String host, Integer port);
-
-    /**
-     * Sets the proxy to use for all requests to the Jenkins API.
-     *
-     * @param url The proxy URL
-     * @return The current client instance
-     */
-    JenkinsClient withProxy(String url);
-
-    /**
-     * Sets the credentials to use for all requests to the Jenkins API.
-     *
-     * @param username The username
-     * @param token    The personal access token
-     * @return The current client instance
-     */
-    JenkinsClient withTokenAuthentication(String username, String token);
-
-    /**
-     * Sets the credentials to use for all requests to the Jenkins API.
-     *
-     * @param username The username
-     * @param password The password
-     * @return The current client instance
-     */
-    JenkinsClient withUserAuthentication(String username, String password);
-
-    /**
-     * Uses the anonymous access if available for all requests to the Jenkins API.
-     *
-     * @return The current client instance
-     */
-    JenkinsClient withAnonymousAuthentication();
 
 }

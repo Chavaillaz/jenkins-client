@@ -1,11 +1,8 @@
 package com.chavaillaz.jenkins.client.java;
 
-import java.net.InetSocketAddress;
-import java.net.ProxySelector;
 import java.net.http.HttpClient;
-import java.time.Duration;
-import java.util.Optional;
 
+import com.chavaillaz.client.java.JavaHttpUtils;
 import com.chavaillaz.jenkins.client.AbstractJenkinsClient;
 import com.chavaillaz.jenkins.client.JenkinsClient;
 import com.chavaillaz.jenkins.client.JobClient;
@@ -16,6 +13,9 @@ import com.chavaillaz.jenkins.client.StatisticsClient;
 import com.chavaillaz.jenkins.client.SystemClient;
 import com.chavaillaz.jenkins.client.UserClient;
 
+/**
+ * Implementation of {@link JenkinsClient} for Java HTTP.
+ */
 public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
 
     /**
@@ -26,7 +26,6 @@ public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
     public JavaHttpJenkinsClient(String jenkinsUrl) {
         super(jenkinsUrl);
     }
-
 
     /**
      * Creates a default {@link JenkinsClient} with Java HTTP client.
@@ -39,68 +38,42 @@ public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
 
     @Override
     public HttpClient newHttpClient() {
-        return HttpClient.newBuilder()
-                .proxy(Optional.ofNullable(this.proxy)
-                        .map(config -> ProxySelector.of(new InetSocketAddress(config.getHost(), config.getPort())))
-                        .orElse(ProxySelector.getDefault()))
-                .connectTimeout(Duration.ofSeconds(30))
-                .build();
+        return JavaHttpUtils.newHttpClient(proxy);
     }
 
     @Override
     public JobClient getJobClient() {
-        if (cacheJobClient == null) {
-            cacheJobClient = new JavaHttpJobClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cacheJobClient;
+        return cacheJobClient.get(() -> new JavaHttpJobClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public PipelineClient getPipelineClient() {
-        if (cachePipelineClient == null) {
-            cachePipelineClient = new JavaHttpPipelineClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cachePipelineClient;
+        return cachePipelineClient.get(() -> new JavaHttpPipelineClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public PluginClient getPluginClient() {
-        if (cachePluginClient == null) {
-            cachePluginClient = new JavaHttpPluginClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cachePluginClient;
+        return cachePluginClient.get(() -> new JavaHttpPluginClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public QueueClient getQueueClient() {
-        if (cacheQueueClient == null) {
-            cacheQueueClient = new JavaHttpQueueClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cacheQueueClient;
+        return cacheQueueClient.get(() -> new JavaHttpQueueClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public StatisticsClient getStatisticsClient() {
-        if (cacheStatisticsClient == null) {
-            cacheStatisticsClient = new JavaHttpStatisticsClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cacheStatisticsClient;
+        return cacheStatisticsClient.get(() -> new JavaHttpStatisticsClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public SystemClient getSystemClient() {
-        if (cacheSystemClient == null) {
-            cacheSystemClient = new JavaHttpSystemClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cacheSystemClient;
+        return cacheSystemClient.get(() -> new JavaHttpSystemClient(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
     public UserClient getUserClient() {
-        if (cacheUserClient == null) {
-            cacheUserClient = new JavaHttpUserClient(newHttpClient(), jenkinsUrl, authentication);
-        }
-        return cacheUserClient;
+        return cacheUserClient.get(() -> new JavaHttpUserClient(newHttpClient(), baseUrl, authentication));
     }
 
 }
