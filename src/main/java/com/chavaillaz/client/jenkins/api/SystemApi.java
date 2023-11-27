@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.domain.SystemInfo;
 
-public interface SystemClient {
+public interface SystemApi {
 
     String URL_SYSTEM = "/";
     String URL_QUIET_DOWN_START = "/quietDown";

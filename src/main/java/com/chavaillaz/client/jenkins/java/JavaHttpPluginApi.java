@@ -6,13 +6,13 @@ import java.net.http.HttpClient;
 import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.PluginClient;
+import com.chavaillaz.client.jenkins.api.PluginApi;
 import com.chavaillaz.client.jenkins.domain.Plugins;
 
 /**
- * Implementation of {@link PluginClient} for Java HTTP.
+ * Implementation of {@link PluginApi} for Java HTTP.
  */
-public class JavaHttpPluginClient extends AbstractJavaHttpClient implements PluginClient {
+public class JavaHttpPluginApi extends AbstractJavaHttpClient implements PluginApi {
 
     /**
      * Creates a new plugin client based on Java HTTP client.
@@ -21,7 +21,7 @@ public class JavaHttpPluginClient extends AbstractJavaHttpClient implements Plug
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpPluginClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    public JavaHttpPluginApi(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.QueueClient;
+import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.domain.QueueItem;
 import com.chavaillaz.client.jenkins.domain.QueueItems;
 
 /**
- * Implementation of {@link QueueClient} for Java HTTP.
+ * Implementation of {@link QueueApi} for Java HTTP.
  */
-public class JavaHttpQueueClient extends AbstractJavaHttpClient implements QueueClient {
+public class JavaHttpQueueApi extends AbstractJavaHttpClient implements QueueApi {
 
     /**
      * Creates a new queue client based on Java HTTP client.
@@ -23,7 +23,7 @@ public class JavaHttpQueueClient extends AbstractJavaHttpClient implements Queue
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpQueueClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    public JavaHttpQueueApi(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

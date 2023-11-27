@@ -10,7 +10,7 @@ import com.chavaillaz.client.jenkins.domain.PipelineNodeLog;
 import com.chavaillaz.client.jenkins.domain.PipelineRun;
 import com.chavaillaz.client.jenkins.domain.PipelineRuns;
 
-public interface PipelineClient {
+public interface PipelineApi {
 
     String URL_RUN_HISTORY = "{0}/job/{1}/job/{2}/wfapi/runs";
     String URL_RUN_DETAILS = "{0}/job/{1}/job/{2}/{3,number,#}/wfapi/describe";

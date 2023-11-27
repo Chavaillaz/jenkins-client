@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.domain.Plugins;
 
-public interface PluginClient {
+public interface PluginApi {
 
     String URL_PLUGINS = "pluginManager/api/json?depth={0}&tree={1}";
     String URL_PLUGINS_INSTALLATION = "pluginManager/installNecessaryPlugins";

@@ -50,7 +50,7 @@ It does not require any dependency (already in Java).
 
 ### Features
 
-- **[JobClient](src/main/java/com/chavaillaz/jenkins/client/JobClient.java) -
+- **[JobApi](src/main/java/com/chavaillaz/client/jenkins/api/JobApi.java) -
   Everything for folders, views, jobs and their builds**
     - Folders
         - `getFolder(Path path)`
@@ -85,7 +85,7 @@ It does not require any dependency (already in Java).
         - `buildJob(Path path, String jobName)`
         - `buildJob(Path path, String jobName, Map<Object, Object> properties)`
         - `stopBuild(Path path, String jobName, int buildNumber)`
-- **[PipelineClient](src/main/java/com/chavaillaz/jenkins/client/PipelineClient.java) -
+- **[PipelineApi](src/main/java/com/chavaillaz/client/jenkins/api/PipelineApi.java) -
   Everything for pipelines**
     - `getRunHistory(Path path, String pipelineName, String branchName)`
     - `getRun(Path path, String pipelineName, String branchName, long buildNumber)`
@@ -93,21 +93,21 @@ It does not require any dependency (already in Java).
     - `getRunArtifacts(Path path, String pipelineName, String branchName, long buildNumber)`
     - `getRunNode(Path path, String pipelineName, String branchName, long buildNumber, String nodeId)`
     - `getRunNodeLog(Path path, String pipelineName, String branchName, long buildNumber, String nodeId)`
-- **[PluginClient](src/main/java/com/chavaillaz/jenkins/client/PluginClient.java) -
+- **[PluginApi](src/main/java/com/chavaillaz/client/jenkins/api/PluginApi.java) -
   Everything for plugins**
     - `getPlugins()`
     - `getPlugins(Integer depth, String tree)`
     - `installPlugin(String pluginId)`
-- **[QueueClient](src/main/java/com/chavaillaz/jenkins/client/QueueClient.java) -
+- **[QueueApi](src/main/java/com/chavaillaz/client/jenkins/api/QueueApi.java) -
   Everything for queues**
     - `getQueueItems()`
     - `getQueueItem(long queueId)`
     - `getQueueItemOptional(long queueId)`
     - `cancelQueueItem(long id)`
-- **[StatisticsClient](src/main/java/com/chavaillaz/jenkins/client/StatisticsClient.java) -
+- **[StatisticsApi](src/main/java/com/chavaillaz/client/jenkins/api/StatisticsApi.java) -
   Everything for load statistics**
     - `getOverallLoad()`
-- **[SystemClient](src/main/java/com/chavaillaz/jenkins/client/SystemClient.java) -
+- **[SystemApi](src/main/java/com/chavaillaz/client/jenkins/api/SystemApi.java) -
   Everything for system management**
     - `getSystemInfo()`
     - `quietDown()`
@@ -117,7 +117,7 @@ It does not require any dependency (already in Java).
     - `exit()`
     - `safeExit()`
     - `reload()`
-- **[UserClient](src/main/java/com/chavaillaz/jenkins/client/UserClient.java) -
+- **[UserApi](src/main/java/com/chavaillaz/client/jenkins/api/UserApi.java) -
   Everything for users**
     - `getUser()`
     - `generateToken(String tokenName)`

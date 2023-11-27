@@ -12,7 +12,7 @@ import com.chavaillaz.client.jenkins.domain.Path;
 import com.chavaillaz.client.jenkins.domain.TestReport;
 import com.chavaillaz.client.jenkins.domain.ViewInfo;
 
-public interface JobClient {
+public interface JobApi {
 
     String URL_FOLDER = "{0}/api/json";
     String URL_FOLDER_CONFIGURATION = "{0}/config.xml";

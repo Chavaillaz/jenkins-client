@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.JobClient;
+import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.domain.BuildInfo;
 import com.chavaillaz.client.jenkins.domain.CoverageReport;
 import com.chavaillaz.client.jenkins.domain.Folder;
@@ -27,9 +27,9 @@ import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * Implementation of {@link JobClient} for Java HTTP.
+ * Implementation of {@link JobApi} for Java HTTP.
  */
-public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClient {
+public class JavaHttpJobApi extends AbstractJavaHttpClient implements JobApi {
 
     /**
      * Creates a new job client based on Java HTTP client.
@@ -38,7 +38,7 @@ public class JavaHttpJobClient extends AbstractJavaHttpClient implements JobClie
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpJobClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    public JavaHttpJobApi(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

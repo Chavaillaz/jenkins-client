@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import com.chavaillaz.client.jenkins.domain.Token;
 import com.chavaillaz.client.jenkins.domain.User;
 
-public interface UserClient {
+public interface UserApi {
 
     String URL_CRUMB = "/crumbIssuer/api/json";
     String URL_USER = "/user/{0}/api/json";

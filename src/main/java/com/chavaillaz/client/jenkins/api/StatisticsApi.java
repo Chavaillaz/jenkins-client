@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.domain.Load;
 
-public interface StatisticsClient {
+public interface StatisticsApi {
 
     String URL_STATISTICS = "/overallLoad/api/json";
 

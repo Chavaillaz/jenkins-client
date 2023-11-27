@@ -2,7 +2,7 @@ package com.chavaillaz.client.jenkins.java;
 
 import static com.chavaillaz.client.jenkins.JenkinsClient.JENKINS_COOKIES_JSESSIONID;
 import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
-import static com.chavaillaz.client.jenkins.api.UserClient.URL_CRUMB;
+import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

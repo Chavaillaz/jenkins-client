@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.UserClient;
+import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.domain.Token;
 import com.chavaillaz.client.jenkins.domain.User;
 
 /**
- * Implementation of {@link UserClient} for Java HTTP.
+ * Implementation of {@link UserApi} for Java HTTP.
  */
-public class JavaHttpUserClient extends AbstractJavaHttpClient implements UserClient {
+public class JavaHttpUserApi extends AbstractJavaHttpClient implements UserApi {
 
     /**
      * Creates a new user client based on Java HTTP client.
@@ -23,7 +23,7 @@ public class JavaHttpUserClient extends AbstractJavaHttpClient implements UserCl
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication header (nullable)
      */
-    public JavaHttpUserClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    public JavaHttpUserApi(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

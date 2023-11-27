@@ -4,7 +4,7 @@ import java.net.http.HttpClient;
 import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.PipelineClient;
+import com.chavaillaz.client.jenkins.api.PipelineApi;
 import com.chavaillaz.client.jenkins.domain.Path;
 import com.chavaillaz.client.jenkins.domain.PipelineActions;
 import com.chavaillaz.client.jenkins.domain.PipelineArtifacts;
@@ -14,9 +14,9 @@ import com.chavaillaz.client.jenkins.domain.PipelineRun;
 import com.chavaillaz.client.jenkins.domain.PipelineRuns;
 
 /**
- * Implementation of {@link PipelineClient} for Java HTTP.
+ * Implementation of {@link PipelineApi} for Java HTTP.
  */
-public class JavaHttpPipelineClient extends AbstractJavaHttpClient implements PipelineClient {
+public class JavaHttpPipelineApi extends AbstractJavaHttpClient implements PipelineApi {
 
     /**
      * Creates a new pipeline client based on Java HTTP client.
@@ -25,7 +25,7 @@ public class JavaHttpPipelineClient extends AbstractJavaHttpClient implements Pi
      * @param baseUrl        The URL of Jenkins
      * @param authentication The authentication method
      */
-    public JavaHttpPipelineClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    public JavaHttpPipelineApi(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
     }
 

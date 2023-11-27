@@ -1,13 +1,13 @@
 package com.chavaillaz.client.jenkins;
 
 import com.chavaillaz.client.common.Client;
-import com.chavaillaz.client.jenkins.api.JobClient;
-import com.chavaillaz.client.jenkins.api.PipelineClient;
-import com.chavaillaz.client.jenkins.api.PluginClient;
-import com.chavaillaz.client.jenkins.api.QueueClient;
-import com.chavaillaz.client.jenkins.api.StatisticsClient;
-import com.chavaillaz.client.jenkins.api.SystemClient;
-import com.chavaillaz.client.jenkins.api.UserClient;
+import com.chavaillaz.client.jenkins.api.JobApi;
+import com.chavaillaz.client.jenkins.api.PipelineApi;
+import com.chavaillaz.client.jenkins.api.PluginApi;
+import com.chavaillaz.client.jenkins.api.QueueApi;
+import com.chavaillaz.client.jenkins.api.StatisticsApi;
+import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.java.JavaHttpJenkinsClient;
 
 public interface JenkinsClient extends Client<JenkinsClient> {
@@ -29,49 +29,49 @@ public interface JenkinsClient extends Client<JenkinsClient> {
      *
      * @return The job client
      */
-    JobClient getJobClient();
+    JobApi getJobApi();
 
     /**
      * Gets the pipeline client.
      *
      * @return The pipeline client
      */
-    PipelineClient getPipelineClient();
+    PipelineApi getPipelineApi();
 
     /**
      * Gets the plugin client.
      *
      * @return The plugin client
      */
-    PluginClient getPluginClient();
+    PluginApi getPluginApi();
 
     /**
      * Ges the queue client.
      *
      * @return The queue client
      */
-    QueueClient getQueueClient();
+    QueueApi getQueueApi();
 
     /**
      * Gets the statistics client
      *
      * @return The statistics client
      */
-    StatisticsClient getStatisticsClient();
+    StatisticsApi getStatisticsApi();
 
     /**
      * Gets the system client
      *
      * @return The system client
      */
-    SystemClient getSystemClient();
+    SystemApi getSystemApi();
 
     /**
      * Gets the user client
      *
      * @return THe user client
      */
-    UserClient getUserClient();
+    UserApi getUserApi();
 
     /**
      * Sets the credentials to use for all requests to the API.

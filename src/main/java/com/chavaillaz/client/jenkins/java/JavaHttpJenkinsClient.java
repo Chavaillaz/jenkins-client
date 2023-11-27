@@ -5,13 +5,13 @@ import java.net.http.HttpClient;
 import com.chavaillaz.client.common.java.JavaHttpUtils;
 import com.chavaillaz.client.jenkins.AbstractJenkinsClient;
 import com.chavaillaz.client.jenkins.JenkinsClient;
-import com.chavaillaz.client.jenkins.api.JobClient;
-import com.chavaillaz.client.jenkins.api.PipelineClient;
-import com.chavaillaz.client.jenkins.api.PluginClient;
-import com.chavaillaz.client.jenkins.api.QueueClient;
-import com.chavaillaz.client.jenkins.api.StatisticsClient;
-import com.chavaillaz.client.jenkins.api.SystemClient;
-import com.chavaillaz.client.jenkins.api.UserClient;
+import com.chavaillaz.client.jenkins.api.JobApi;
+import com.chavaillaz.client.jenkins.api.PipelineApi;
+import com.chavaillaz.client.jenkins.api.PluginApi;
+import com.chavaillaz.client.jenkins.api.QueueApi;
+import com.chavaillaz.client.jenkins.api.StatisticsApi;
+import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.api.UserApi;
 
 /**
  * Implementation of {@link JenkinsClient} for Java HTTP.
@@ -33,38 +33,38 @@ public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
     }
 
     @Override
-    public JobClient getJobClient() {
-        return jobClient.get(() -> new JavaHttpJobClient(newHttpClient(), baseUrl, authentication));
+    public JobApi getJobApi() {
+        return jobApi.get(() -> new JavaHttpJobApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public PipelineClient getPipelineClient() {
-        return pipelineClient.get(() -> new JavaHttpPipelineClient(newHttpClient(), baseUrl, authentication));
+    public PipelineApi getPipelineApi() {
+        return pipelineApi.get(() -> new JavaHttpPipelineApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public PluginClient getPluginClient() {
-        return pluginClient.get(() -> new JavaHttpPluginClient(newHttpClient(), baseUrl, authentication));
+    public PluginApi getPluginApi() {
+        return pluginApi.get(() -> new JavaHttpPluginApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public QueueClient getQueueClient() {
-        return queueClient.get(() -> new JavaHttpQueueClient(newHttpClient(), baseUrl, authentication));
+    public QueueApi getQueueApi() {
+        return queueApi.get(() -> new JavaHttpQueueApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public StatisticsClient getStatisticsClient() {
-        return statisticsClient.get(() -> new JavaHttpStatisticsClient(newHttpClient(), baseUrl, authentication));
+    public StatisticsApi getStatisticsApi() {
+        return statisticsApi.get(() -> new JavaHttpStatisticsApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public SystemClient getSystemClient() {
-        return systemClient.get(() -> new JavaHttpSystemClient(newHttpClient(), baseUrl, authentication));
+    public SystemApi getSystemApi() {
+        return systemApi.get(() -> new JavaHttpSystemApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override
-    public UserClient getUserClient() {
-        return userClient.get(() -> new JavaHttpUserClient(newHttpClient(), baseUrl, authentication));
+    public UserApi getUserApi() {
+        return userApi.get(() -> new JavaHttpUserApi(newHttpClient(), baseUrl, authentication));
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import com.chavaillaz.client.jenkins.domain.QueueItem;
 import com.chavaillaz.client.jenkins.domain.QueueItems;
 
-public interface QueueClient {
+public interface QueueApi {
 
     String URL_QUEUE_LIST = "queue/api/json";
     String URL_QUEUE_ITEM = "queue/item/{0,number,#}/api/json";

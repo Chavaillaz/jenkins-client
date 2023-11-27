@@ -3,13 +3,13 @@ package com.chavaillaz.client.jenkins;
 
 import com.chavaillaz.client.common.AbstractClient;
 import com.chavaillaz.client.common.utility.LazyCachedObject;
-import com.chavaillaz.client.jenkins.api.JobClient;
-import com.chavaillaz.client.jenkins.api.PipelineClient;
-import com.chavaillaz.client.jenkins.api.PluginClient;
-import com.chavaillaz.client.jenkins.api.QueueClient;
-import com.chavaillaz.client.jenkins.api.StatisticsClient;
-import com.chavaillaz.client.jenkins.api.SystemClient;
-import com.chavaillaz.client.jenkins.api.UserClient;
+import com.chavaillaz.client.jenkins.api.JobApi;
+import com.chavaillaz.client.jenkins.api.PipelineApi;
+import com.chavaillaz.client.jenkins.api.PluginApi;
+import com.chavaillaz.client.jenkins.api.QueueApi;
+import com.chavaillaz.client.jenkins.api.StatisticsApi;
+import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.api.UserApi;
 
 /**
  * Abstract class implementing common parts for Jenkins clients.
@@ -20,13 +20,13 @@ public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, Jenkins
 
     protected JenkinsAuthentication authentication;
 
-    protected LazyCachedObject<JobClient> jobClient = new LazyCachedObject<>();
-    protected LazyCachedObject<PipelineClient> pipelineClient = new LazyCachedObject<>();
-    protected LazyCachedObject<PluginClient> pluginClient = new LazyCachedObject<>();
-    protected LazyCachedObject<QueueClient> queueClient = new LazyCachedObject<>();
-    protected LazyCachedObject<StatisticsClient> statisticsClient = new LazyCachedObject<>();
-    protected LazyCachedObject<SystemClient> systemClient = new LazyCachedObject<>();
-    protected LazyCachedObject<UserClient> userClient = new LazyCachedObject<>();
+    protected LazyCachedObject<JobApi> jobApi = new LazyCachedObject<>();
+    protected LazyCachedObject<PipelineApi> pipelineApi = new LazyCachedObject<>();
+    protected LazyCachedObject<PluginApi> pluginApi = new LazyCachedObject<>();
+    protected LazyCachedObject<QueueApi> queueApi = new LazyCachedObject<>();
+    protected LazyCachedObject<StatisticsApi> statisticsApi = new LazyCachedObject<>();
+    protected LazyCachedObject<SystemApi> systemApi = new LazyCachedObject<>();
+    protected LazyCachedObject<UserApi> userApi = new LazyCachedObject<>();
 
     /**
      * Creates a new abstract client.
