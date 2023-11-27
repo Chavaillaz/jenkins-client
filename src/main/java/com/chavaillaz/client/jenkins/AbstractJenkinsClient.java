@@ -1,9 +1,8 @@
 package com.chavaillaz.client.jenkins;
 
-import static com.chavaillaz.client.Authentication.AuthenticationType.PASSWORD;
-import static com.chavaillaz.client.Authentication.AuthenticationType.TOKEN;
 
-import com.chavaillaz.client.AbstractClient;
+import com.chavaillaz.client.common.AbstractClient;
+import com.chavaillaz.client.common.utility.LazyCachedObject;
 import com.chavaillaz.client.jenkins.api.JobClient;
 import com.chavaillaz.client.jenkins.api.PipelineClient;
 import com.chavaillaz.client.jenkins.api.PluginClient;
@@ -11,22 +10,23 @@ import com.chavaillaz.client.jenkins.api.QueueClient;
 import com.chavaillaz.client.jenkins.api.StatisticsClient;
 import com.chavaillaz.client.jenkins.api.SystemClient;
 import com.chavaillaz.client.jenkins.api.UserClient;
-import com.chavaillaz.client.utility.LazyCachedObject;
 
 /**
  * Abstract class implementing common parts for Jenkins clients.
  *
  * @param <C> The HTTP client type
  */
-public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, JenkinsAuthentication, JenkinsClient> implements JenkinsClient {
+public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, JenkinsClient> implements JenkinsClient {
 
-    protected LazyCachedObject<JobClient> cacheJobClient = new LazyCachedObject<>();
-    protected LazyCachedObject<PipelineClient> cachePipelineClient = new LazyCachedObject<>();
-    protected LazyCachedObject<PluginClient> cachePluginClient = new LazyCachedObject<>();
-    protected LazyCachedObject<QueueClient> cacheQueueClient = new LazyCachedObject<>();
-    protected LazyCachedObject<StatisticsClient> cacheStatisticsClient = new LazyCachedObject<>();
-    protected LazyCachedObject<SystemClient> cacheSystemClient = new LazyCachedObject<>();
-    protected LazyCachedObject<UserClient> cacheUserClient = new LazyCachedObject<>();
+    protected JenkinsAuthentication authentication;
+
+    protected LazyCachedObject<JobClient> jobClient = new LazyCachedObject<>();
+    protected LazyCachedObject<PipelineClient> pipelineClient = new LazyCachedObject<>();
+    protected LazyCachedObject<PluginClient> pluginClient = new LazyCachedObject<>();
+    protected LazyCachedObject<QueueClient> queueClient = new LazyCachedObject<>();
+    protected LazyCachedObject<StatisticsClient> statisticsClient = new LazyCachedObject<>();
+    protected LazyCachedObject<SystemClient> systemClient = new LazyCachedObject<>();
+    protected LazyCachedObject<UserClient> userClient = new LazyCachedObject<>();
 
     /**
      * Creates a new abstract client.
@@ -38,20 +38,25 @@ public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, Jenkins
     }
 
     @Override
+    public JenkinsClient withTokenAuthentication(String token) {
+        throw new UnsupportedOperationException("Token authentication needs username");
+    }
+
+    @Override
     public JenkinsClient withTokenAuthentication(String username, String token) {
-        this.authentication = new JenkinsAuthentication(TOKEN, username, token);
+        this.authentication = new JenkinsAuthentication(username, token);
         return this;
     }
 
     @Override
     public JenkinsClient withUserAuthentication(String username, String password) {
-        this.authentication = new JenkinsAuthentication(PASSWORD, username, password);
+        this.authentication = new JenkinsAuthentication(username, password);
         return this;
     }
 
     @Override
     public JenkinsClient withAnonymousAuthentication() {
-        this.authentication = new JenkinsAuthentication();
+        this.authentication = new JenkinsAuthentication(null, null);
         return this;
     }
 

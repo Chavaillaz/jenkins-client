@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.java;
 
-import static com.chavaillaz.client.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.java.JavaHttpUtils.ofFormData;
 
 import java.net.http.HttpClient;
 import java.util.Map;

@@ -24,7 +24,7 @@ using [Jackson][Jackson].
 Presently, it supports the following HTTP clients:
 
 - [Java HTTP client][JavaHttp] (included since Java 11)
-- Apache and OkHttp will follow soon
+- Apache, OkHttp and Vert.x will follow soon
 
 Note that this library has been tested with a [Jenkins instance version 2.426.1][Jenkins].
 
@@ -33,7 +33,6 @@ Note that this library has been tested with a [Jenkins instance version 2.426.1]
 The dependency is available in maven central (see badge for version):
 
 ```xml
-
 <dependency>
     <groupId>com.chavaillaz</groupId>
     <artifactId>jenkins-client</artifactId>
@@ -134,7 +133,7 @@ Below an example for each HTTP client:
 - [JavaHttpJenkinsClient](src/main/java/com/chavaillaz/jenkins/client/java/JavaHttpJenkinsClient.java)
 
 ```java
-JenkinsClient client=JavaHttpJenkinsClient.jenkinsJavaClient("https://jenkins.mycompany.com")
+JenkinsClient client = JenkinsClient.javaClient("https://jenkins.mycompany.com")
         .withUserAuthentication("myUsername","myPassword")
         .withProxy("http://proxy.mycompany.com:1234");
 ```

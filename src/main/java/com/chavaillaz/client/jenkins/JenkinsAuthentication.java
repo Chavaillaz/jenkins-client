@@ -1,41 +1,39 @@
 package com.chavaillaz.client.jenkins;
 
-import java.util.Base64;
+import static com.chavaillaz.client.common.utility.Utils.encodeBase64;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import com.chavaillaz.client.Authentication;
+import com.chavaillaz.client.common.security.AnonymousAuthentication;
 import com.chavaillaz.client.jenkins.domain.Crumb;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * Implementation of the authentication specificities for Jenkins.
  */
 @Getter
-@NoArgsConstructor
-public class JenkinsAuthentication extends Authentication {
+public class JenkinsAuthentication extends AnonymousAuthentication {
 
+    private final String username;
+    private final String password;
     private Crumb crumb;
 
     /**
      * Creates a new authentication configuration.
      *
-     * @param type     The type of authentication
      * @param username The username or {@code null} for anonymous access
      * @param password The password, token or {@code null} for anonymous access
      */
-    public JenkinsAuthentication(AuthenticationType type, String username, String password) {
-        super(type, username, password);
+    public JenkinsAuthentication(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    /**
-     * Encodes a {@link String} to base 64 format.
-     *
-     * @param value The value to encode
-     * @return The encoded value
-     */
-    private static String encodeBase64(String value) {
-        return Base64.getEncoder().encodeToString(value.getBytes());
+    @Override
+    public void fillHeaders(BiConsumer<String, String> addHeader) {
+        addHeader.accept("Authorization", getAuthorizationHeader());
     }
 
     /**
@@ -44,12 +42,19 @@ public class JenkinsAuthentication extends Authentication {
      * @return The authorization header
      */
     public String getAuthorizationHeader() {
-        return switch (getType()) {
-            case ANONYMOUS -> encodeBase64("anonymous:");
-            case PASSWORD, TOKEN -> "Basic " + encodeBase64(getUsername() + ":" + getPassword());
-        };
+        if (isBlank(username) || isBlank(password)) {
+            return encodeBase64("anonymous:");
+        } else {
+            return "Basic " + encodeBase64(getUsername() + ":" + getPassword());
+        }
     }
 
+    /**
+     * Gets the crumb and loads it if not already retrieved
+     *
+     * @param supplier The function to get the crumb
+     * @return The crumb stored or loaded
+     */
     public Crumb loadCrumbIfAbsent(Supplier<Crumb> supplier) {
         if (this.crumb == null) {
             this.crumb = supplier.get();

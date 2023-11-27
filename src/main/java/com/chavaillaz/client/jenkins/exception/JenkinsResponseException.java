@@ -2,7 +2,7 @@ package com.chavaillaz.client.jenkins.exception;
 
 import static com.chavaillaz.client.jenkins.JenkinsConstant.extractHtmlErrors;
 
-import com.chavaillaz.client.exception.ResponseException;
+import com.chavaillaz.client.common.exception.ResponseException;
 import lombok.Getter;
 
 @Getter

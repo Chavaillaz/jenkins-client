@@ -1,7 +1,7 @@
 package com.chavaillaz.client.jenkins.java;
 
-import static com.chavaillaz.client.java.JavaHttpUtils.ofFormData;
-import static com.chavaillaz.client.utility.Utils.queryFromKeyValue;
+import static com.chavaillaz.client.common.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
 import static java.net.http.HttpRequest.BodyPublishers.noBody;
@@ -12,7 +12,7 @@ import java.net.http.HttpClient;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.utility.Utils;
+import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.JobClient;
 import com.chavaillaz.client.jenkins.domain.BuildInfo;

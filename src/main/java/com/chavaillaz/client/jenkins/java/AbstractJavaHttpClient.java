@@ -9,15 +9,19 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
-import com.chavaillaz.client.exception.ResponseException;
+import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.domain.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
+import lombok.Getter;
 
 /**
  * Abstract class implementing common parts to call the Jenkins REST API for Java HTTP.
  */
-public class AbstractJavaHttpClient extends com.chavaillaz.client.java.AbstractJavaHttpClient<JenkinsAuthentication> {
+@Getter
+public class AbstractJavaHttpClient extends com.chavaillaz.client.common.java.AbstractJavaHttpClient {
+
+    protected JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client based on Java HTTP client.
@@ -28,6 +32,7 @@ public class AbstractJavaHttpClient extends com.chavaillaz.client.java.AbstractJ
      */
     public AbstractJavaHttpClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
+        this.authentication = authentication;
         // Load in advance the crumb for all requests, even if not necessary
         this.authentication.loadCrumbIfAbsent(this::loadCrumb);
     }
