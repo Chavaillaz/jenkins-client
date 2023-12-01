@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.SystemApi;
-import com.chavaillaz.client.jenkins.domain.SystemInfo;
+import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 
 /**
  * Implementation of {@link SystemApi} for Java HTTP.

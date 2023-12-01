@@ -4,13 +4,13 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.BuildInfo;
-import com.chavaillaz.client.jenkins.domain.CoverageReport;
-import com.chavaillaz.client.jenkins.domain.Folder;
-import com.chavaillaz.client.jenkins.domain.JobInfo;
-import com.chavaillaz.client.jenkins.domain.Path;
-import com.chavaillaz.client.jenkins.domain.TestReport;
-import com.chavaillaz.client.jenkins.domain.ViewInfo;
+import com.chavaillaz.client.jenkins.domain.folder.Folder;
+import com.chavaillaz.client.jenkins.domain.folder.Path;
+import com.chavaillaz.client.jenkins.domain.job.JobInfo;
+import com.chavaillaz.client.jenkins.domain.job.build.BuildInfo;
+import com.chavaillaz.client.jenkins.domain.job.test.CoverageReport;
+import com.chavaillaz.client.jenkins.domain.job.test.TestReport;
+import com.chavaillaz.client.jenkins.domain.view.ViewInfo;
 
 public interface JobApi {
 

@@ -7,7 +7,7 @@ import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.domain.Crumb;
+import com.chavaillaz.client.jenkins.domain.user.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -17,7 +17,7 @@ import okhttp3.Response;
 @Getter
 public abstract class AbstractOkHttpClient extends com.chavaillaz.client.common.okhttp.AbstractOkHttpClient {
 
-    protected JenkinsAuthentication authentication;
+    protected final JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client based on OkHttp client.

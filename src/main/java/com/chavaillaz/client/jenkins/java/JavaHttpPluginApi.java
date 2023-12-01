@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.PluginApi;
-import com.chavaillaz.client.jenkins.domain.Plugins;
+import com.chavaillaz.client.jenkins.domain.plugin.Plugins;
 
 /**
  * Implementation of {@link PluginApi} for Java HTTP.

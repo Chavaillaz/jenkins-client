@@ -8,8 +8,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.QueueApi;
-import com.chavaillaz.client.jenkins.domain.QueueItem;
-import com.chavaillaz.client.jenkins.domain.QueueItems;
+import com.chavaillaz.client.jenkins.domain.queue.QueueItem;
+import com.chavaillaz.client.jenkins.domain.queue.QueueItems;
 
 /**
  * Implementation of {@link QueueApi} for Java HTTP.

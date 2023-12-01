@@ -8,12 +8,11 @@ import static org.apache.hc.core5.http.ContentType.APPLICATION_JSON;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.UserApi;
-import com.chavaillaz.client.jenkins.domain.Token;
-import com.chavaillaz.client.jenkins.domain.User;
+import com.chavaillaz.client.jenkins.domain.user.Token;
+import com.chavaillaz.client.jenkins.domain.user.User;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link UserApi} for Apache HTTP.
@@ -25,7 +24,7 @@ public class ApacheHttpUserApi extends AbstractApacheHttpClient implements UserA
      *
      * @param client         The Apache HTTP client to use
      * @param baseUrl        The URL of Jenkins
-     * @param authentication The authentication header (nullable)
+     * @param authentication The authentication information
      */
     public ApacheHttpUserApi(CloseableHttpAsyncClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);

@@ -7,7 +7,7 @@ import static io.vertx.core.http.HttpMethod.GET;
 
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.domain.Crumb;
+import com.chavaillaz.client.jenkins.domain.user.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.web.client.HttpResponse;
@@ -18,7 +18,7 @@ import lombok.SneakyThrows;
 @Getter
 public abstract class AbstractVertxHttpClient extends com.chavaillaz.client.common.vertx.AbstractVertxHttpClient {
 
-    protected JenkinsAuthentication authentication;
+    protected final JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client based on Vert.x HTTP client.

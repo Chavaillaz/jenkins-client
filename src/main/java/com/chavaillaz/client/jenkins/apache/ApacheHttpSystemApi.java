@@ -6,13 +6,12 @@ import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.post
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import com.chavaillaz.client.jenkins.JenkinsAuthentication;
+import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.core5.http.NameValuePair;
-
-import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.api.SystemApi;
-import com.chavaillaz.client.jenkins.domain.SystemInfo;
 
 /**
  * Implementation of {@link SystemApi} for Apache HTTP.

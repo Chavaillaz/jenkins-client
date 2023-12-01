@@ -12,6 +12,8 @@
 
 [OkHttp]: https://square.github.io/okhttp/
 
+[Vertx]: https://vertx.io/docs/vertx-web-client/java/
+
 ![Dependency Check](https://github.com/chavaillaz/jenkins-client/actions/workflows/snyk.yml/badge.svg)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.chavaillaz/jenkins-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.chavaillaz/jenkins-client)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -24,7 +26,9 @@ using [Jackson][Jackson].
 Presently, it supports the following HTTP clients:
 
 - [Java HTTP client][JavaHttp] (included since Java 11)
-- Apache, OkHttp and Vert.x will follow soon
+- [Apache HTTP client][ApacheHttp] 5.2
+- [OkHttp client][OkHttp] 4.11
+- [Vert.x client][Vertx] 4.5
 
 Note that this library has been tested with a [Jenkins instance version 2.426.1][Jenkins].
 
@@ -45,6 +49,42 @@ optional in the project, to avoid gathering them all together despite the fact t
 ### Java HTTP client
 
 It does not require any dependency (already in Java).
+
+### Apache HTTP client
+
+It requires the following dependency:
+
+```xml
+<dependency>
+    <groupId>org.apache.httpcomponents.client5</groupId>
+    <artifactId>httpclient5</artifactId>
+    <version>5.2.x</version>
+</dependency>
+```
+
+### OkHttp client
+
+It requires the following dependency:
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.12.x</version>
+</dependency>
+```
+
+### Vert.x client
+
+It requires the following dependency:
+
+```xml
+<dependency>
+    <groupId>io.vertx</groupId>
+    <artifactId>vertx-web-client</artifactId>
+    <version>4.5.x</version>
+</dependency>
+```
 
 ## Usage
 
@@ -96,7 +136,7 @@ It does not require any dependency (already in Java).
 - **[PluginApi](src/main/java/com/chavaillaz/client/jenkins/api/PluginApi.java) -
   Everything for plugins**
     - `getPlugins()`
-    - `getPlugins(Integer depth, String tree)`
+    - `getPlugins(Integer depth)`
     - `installPlugin(String pluginId)`
 - **[QueueApi](src/main/java/com/chavaillaz/client/jenkins/api/QueueApi.java) -
   Everything for queues**
@@ -130,16 +170,39 @@ want to add authentication with an access token using `withTokenAuthentication` 
 `withUserAuthentication`. If you need to connect via a proxy, you can specify it using `withProxy`.
 Below an example for each HTTP client:
 
-- [JavaHttpJenkinsClient](src/main/java/com/chavaillaz/jenkins/client/java/JavaHttpJenkinsClient.java)
+- [JavaHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/java/JavaHttpJenkinsClient.java)
 
 ```java
 JenkinsClient client = JenkinsClient.javaClient("https://jenkins.mycompany.com")
-        .withUserAuthentication("myUsername","myPassword")
-        .withProxy("http://proxy.mycompany.com:1234");
+    .withUserAuthentication("myUsername","myPassword")
+    .withProxy("http://proxy.mycompany.com:1234");
 ```
 
-From this `JenkinsClient` you will then be able to get the desired clients described in
-the [feature chapter](#features).
+- [ApacheHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/apache/ApacheHttpJenkinsClient.java)
+
+```java
+JenkinsClient client = JenkinsClient.apacheClient("https://jenkins.mycompany.com")
+    .withUserAuthentication("myUsername","myPassword")
+    .withProxy("http://proxy.mycompany.com:1234");
+```
+
+- [OkHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/okhttp/OkHttpJenkinsClient.java)
+
+```java
+JenkinsClient client = JenkinsClient.okHttpClient("https://jenkins.mycompany.com")
+    .withUserAuthentication("myUsername","myPassword")
+    .withProxy("http://proxy.mycompany.com:1234");
+```
+
+- [VertxHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/vertx/VertxHttpJenkinsClient.java)
+
+```java
+JenkinsClient client = JenkinsClient.vertxClient("https://jenkins.mycompany.com")
+    .withUserAuthentication("myUsername","myPassword")
+    .withProxy("http://proxy.mycompany.com:1234");
+```
+
+From this `JenkinsClient` you will then be able to get the desired APIs described in the [feature chapter](#features).
 
 ### Iterable results
 

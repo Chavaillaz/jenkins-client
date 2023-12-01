@@ -2,13 +2,13 @@ package com.chavaillaz.client.jenkins.api;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.Path;
-import com.chavaillaz.client.jenkins.domain.PipelineActions;
-import com.chavaillaz.client.jenkins.domain.PipelineArtifacts;
-import com.chavaillaz.client.jenkins.domain.PipelineNode;
-import com.chavaillaz.client.jenkins.domain.PipelineNodeLog;
-import com.chavaillaz.client.jenkins.domain.PipelineRun;
-import com.chavaillaz.client.jenkins.domain.PipelineRuns;
+import com.chavaillaz.client.jenkins.domain.folder.Path;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Actions;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Artifacts;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Node;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.NodeLog;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Run;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Runs;
 
 public interface PipelineApi {
 
@@ -27,7 +27,7 @@ public interface PipelineApi {
      * @param branchName   The branch name
      * @return A {@link CompletableFuture} with the runs
      */
-    CompletableFuture<PipelineRuns> getRunHistory(Path path, String pipelineName, String branchName);
+    CompletableFuture<Runs> getRunHistory(Path path, String pipelineName, String branchName);
 
     /**
      * Gets the details of the given pipeline run.
@@ -38,7 +38,7 @@ public interface PipelineApi {
      * @param buildNumber  The build number
      * @return A {@link CompletableFuture} with the run
      */
-    CompletableFuture<PipelineRun> getRun(Path path, String pipelineName, String branchName, long buildNumber);
+    CompletableFuture<Run> getRun(Path path, String pipelineName, String branchName, long buildNumber);
 
     /**
      * Gets the pending actions of the given pipeline run.
@@ -49,7 +49,7 @@ public interface PipelineApi {
      * @param buildNumber  The build number
      * @return A {@link CompletableFuture} with the pending actions
      */
-    CompletableFuture<PipelineActions> getRunPendingActions(Path path, String pipelineName, String branchName, long buildNumber);
+    CompletableFuture<Actions> getRunPendingActions(Path path, String pipelineName, String branchName, long buildNumber);
 
     /**
      * Gets the artifacts of the given pipeline run.
@@ -60,7 +60,7 @@ public interface PipelineApi {
      * @param buildNumber  The build number
      * @return A {@link CompletableFuture} with the artifacts
      */
-    CompletableFuture<PipelineArtifacts> getRunArtifacts(Path path, String pipelineName, String branchName, long buildNumber);
+    CompletableFuture<Artifacts> getRunArtifacts(Path path, String pipelineName, String branchName, long buildNumber);
 
     /**
      * Gets details of the given pipeline node.
@@ -73,7 +73,7 @@ public interface PipelineApi {
      * @param nodeId       The node identifier
      * @return A {@link CompletableFuture} with the run node
      */
-    CompletableFuture<PipelineNode> getRunNode(Path path, String pipelineName, String branchName, long buildNumber, String nodeId);
+    CompletableFuture<Node> getRunNode(Path path, String pipelineName, String branchName, long buildNumber, String nodeId);
 
     /**
      * Gets the logs of the given pipeline node.
@@ -85,6 +85,6 @@ public interface PipelineApi {
      * @param nodeId       The node identifier
      * @return A {@link CompletableFuture} with the run node log
      */
-    CompletableFuture<PipelineNodeLog> getRunNodeLog(Path path, String pipelineName, String branchName, long buildNumber, String nodeId);
+    CompletableFuture<NodeLog> getRunNodeLog(Path path, String pipelineName, String branchName, long buildNumber, String nodeId);
 
 }

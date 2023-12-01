@@ -6,11 +6,10 @@ import static org.apache.hc.core5.http.ContentType.APPLICATION_JSON;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.PluginApi;
-import com.chavaillaz.client.jenkins.domain.Plugins;
+import com.chavaillaz.client.jenkins.domain.plugin.Plugins;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link PluginApi} for Apache HTTP.

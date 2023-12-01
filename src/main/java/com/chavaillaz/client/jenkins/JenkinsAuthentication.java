@@ -10,8 +10,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import com.chavaillaz.client.common.security.AnonymousAuthentication;
-import com.chavaillaz.client.jenkins.domain.Crumb;
-
+import com.chavaillaz.client.jenkins.domain.user.Crumb;
 import lombok.Getter;
 
 /**

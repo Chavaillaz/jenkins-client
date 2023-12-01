@@ -7,8 +7,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.UserApi;
-import com.chavaillaz.client.jenkins.domain.Token;
-import com.chavaillaz.client.jenkins.domain.User;
+import com.chavaillaz.client.jenkins.domain.user.Token;
+import com.chavaillaz.client.jenkins.domain.user.User;
 import okhttp3.OkHttpClient;
 
 /**
@@ -21,7 +21,7 @@ public class OkHttpUserApi extends AbstractOkHttpClient implements UserApi {
      *
      * @param client         The OkHttp client to use
      * @param baseUrl        The URL of Jenkins
-     * @param authentication The authentication header (nullable)
+     * @param authentication The authentication information
      */
     public OkHttpUserApi(OkHttpClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);

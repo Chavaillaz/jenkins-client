@@ -2,7 +2,7 @@ package com.chavaillaz.client.jenkins.api;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.Load;
+import com.chavaillaz.client.jenkins.domain.system.Load;
 
 public interface StatisticsApi {
 

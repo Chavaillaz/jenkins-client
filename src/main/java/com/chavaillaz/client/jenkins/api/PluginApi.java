@@ -3,7 +3,7 @@ package com.chavaillaz.client.jenkins.api;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.UnaryOperator;
 
-import com.chavaillaz.client.jenkins.domain.Plugins;
+import com.chavaillaz.client.jenkins.domain.plugin.Plugins;
 
 public interface PluginApi {
 

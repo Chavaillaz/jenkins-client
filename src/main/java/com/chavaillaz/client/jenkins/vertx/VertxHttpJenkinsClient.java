@@ -11,7 +11,6 @@ import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
-
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.client.WebClient;
 

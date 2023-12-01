@@ -4,17 +4,16 @@ import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.PipelineApi;
-import com.chavaillaz.client.jenkins.domain.Path;
-import com.chavaillaz.client.jenkins.domain.PipelineActions;
-import com.chavaillaz.client.jenkins.domain.PipelineArtifacts;
-import com.chavaillaz.client.jenkins.domain.PipelineNode;
-import com.chavaillaz.client.jenkins.domain.PipelineNodeLog;
-import com.chavaillaz.client.jenkins.domain.PipelineRun;
-import com.chavaillaz.client.jenkins.domain.PipelineRuns;
+import com.chavaillaz.client.jenkins.domain.folder.Path;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Actions;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Artifacts;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Node;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.NodeLog;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Run;
+import com.chavaillaz.client.jenkins.domain.job.pipeline.Runs;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link PipelineApi} for Apache HTTP.
@@ -33,33 +32,33 @@ public class ApacheHttpPipelineApi extends AbstractApacheHttpClient implements P
     }
 
     @Override
-    public CompletableFuture<PipelineRuns> getRunHistory(Path path, String pipelineName, String branchName) {
-        return sendAsync(requestBuilder(get(), URL_RUN_HISTORY, path, pipelineName, branchName), PipelineRuns.class);
+    public CompletableFuture<Runs> getRunHistory(Path path, String pipelineName, String branchName) {
+        return sendAsync(requestBuilder(get(), URL_RUN_HISTORY, path, pipelineName, branchName), Runs.class);
     }
 
     @Override
-    public CompletableFuture<PipelineRun> getRun(Path path, String pipelineName, String branchName, long buildNumber) {
-        return sendAsync(requestBuilder(get(), URL_RUN_DETAILS, path, pipelineName, branchName, buildNumber), PipelineRun.class);
+    public CompletableFuture<Run> getRun(Path path, String pipelineName, String branchName, long buildNumber) {
+        return sendAsync(requestBuilder(get(), URL_RUN_DETAILS, path, pipelineName, branchName, buildNumber), Run.class);
     }
 
     @Override
-    public CompletableFuture<PipelineActions> getRunPendingActions(Path path, String pipelineName, String branchName, long buildNumber) {
-        return sendAsync(requestBuilder(get(), URL_RUN_ACTIONS, path, pipelineName, branchName, buildNumber), PipelineActions.class);
+    public CompletableFuture<Actions> getRunPendingActions(Path path, String pipelineName, String branchName, long buildNumber) {
+        return sendAsync(requestBuilder(get(), URL_RUN_ACTIONS, path, pipelineName, branchName, buildNumber), Actions.class);
     }
 
     @Override
-    public CompletableFuture<PipelineArtifacts> getRunArtifacts(Path path, String pipelineName, String branchName, long buildNumber) {
-        return sendAsync(requestBuilder(get(), URL_RUN_ARTIFACTS, path, pipelineName, branchName, buildNumber), PipelineArtifacts.class);
+    public CompletableFuture<Artifacts> getRunArtifacts(Path path, String pipelineName, String branchName, long buildNumber) {
+        return sendAsync(requestBuilder(get(), URL_RUN_ARTIFACTS, path, pipelineName, branchName, buildNumber), Artifacts.class);
     }
 
     @Override
-    public CompletableFuture<PipelineNode> getRunNode(Path path, String pipelineName, String branchName, long buildNumber, String nodeId) {
-        return sendAsync(requestBuilder(get(), URL_RUN_STAGE_DETAILS, path, pipelineName, branchName, buildNumber, nodeId), PipelineNode.class);
+    public CompletableFuture<Node> getRunNode(Path path, String pipelineName, String branchName, long buildNumber, String nodeId) {
+        return sendAsync(requestBuilder(get(), URL_RUN_STAGE_DETAILS, path, pipelineName, branchName, buildNumber, nodeId), Node.class);
     }
 
     @Override
-    public CompletableFuture<PipelineNodeLog> getRunNodeLog(Path path, String pipelineName, String branchName, long buildNumber, String nodeId) {
-        return sendAsync(requestBuilder(get(), URL_RUN_STAGE_LOGS, path, pipelineName, branchName, buildNumber, nodeId), PipelineNodeLog.class);
+    public CompletableFuture<NodeLog> getRunNodeLog(Path path, String pipelineName, String branchName, long buildNumber, String nodeId) {
+        return sendAsync(requestBuilder(get(), URL_RUN_STAGE_LOGS, path, pipelineName, branchName, buildNumber, nodeId), NodeLog.class);
     }
 
 }

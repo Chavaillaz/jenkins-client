@@ -2,7 +2,7 @@ package com.chavaillaz.client.jenkins.api;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.SystemInfo;
+import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 
 public interface SystemApi {
 

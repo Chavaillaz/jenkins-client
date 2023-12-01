@@ -4,11 +4,10 @@ import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.StatisticsApi;
-import com.chavaillaz.client.jenkins.domain.Load;
+import com.chavaillaz.client.jenkins.domain.system.Load;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link StatisticsApi} for Apache HTTP.

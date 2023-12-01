@@ -4,8 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.StatisticsApi;
-import com.chavaillaz.client.jenkins.domain.Load;
-
+import com.chavaillaz.client.jenkins.domain.system.Load;
 import okhttp3.OkHttpClient;
 
 /**

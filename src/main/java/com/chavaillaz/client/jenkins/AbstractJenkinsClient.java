@@ -18,15 +18,15 @@ import com.chavaillaz.client.jenkins.api.UserApi;
  */
 public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, JenkinsClient> implements JenkinsClient {
 
-    protected JenkinsAuthentication authentication;
+    protected final LazyCachedObject<JobApi> jobApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<PipelineApi> pipelineApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<PluginApi> pluginApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<QueueApi> queueApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<StatisticsApi> statisticsApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<SystemApi> systemApi = new LazyCachedObject<>();
+    protected final LazyCachedObject<UserApi> userApi = new LazyCachedObject<>();
 
-    protected LazyCachedObject<JobApi> jobApi = new LazyCachedObject<>();
-    protected LazyCachedObject<PipelineApi> pipelineApi = new LazyCachedObject<>();
-    protected LazyCachedObject<PluginApi> pluginApi = new LazyCachedObject<>();
-    protected LazyCachedObject<QueueApi> queueApi = new LazyCachedObject<>();
-    protected LazyCachedObject<StatisticsApi> statisticsApi = new LazyCachedObject<>();
-    protected LazyCachedObject<SystemApi> systemApi = new LazyCachedObject<>();
-    protected LazyCachedObject<UserApi> userApi = new LazyCachedObject<>();
+    protected JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client.

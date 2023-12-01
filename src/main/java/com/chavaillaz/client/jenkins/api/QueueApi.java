@@ -5,8 +5,8 @@ import static java.util.Optional.empty;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.QueueItem;
-import com.chavaillaz.client.jenkins.domain.QueueItems;
+import com.chavaillaz.client.jenkins.domain.queue.QueueItem;
+import com.chavaillaz.client.jenkins.domain.queue.QueueItems;
 
 public interface QueueApi {
 

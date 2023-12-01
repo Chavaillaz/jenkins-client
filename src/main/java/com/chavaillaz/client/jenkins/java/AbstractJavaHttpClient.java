@@ -11,9 +11,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.domain.Crumb;
+import com.chavaillaz.client.jenkins.domain.user.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
-
 import lombok.Getter;
 
 /**
@@ -22,7 +21,7 @@ import lombok.Getter;
 @Getter
 public abstract class AbstractJavaHttpClient extends com.chavaillaz.client.common.java.AbstractJavaHttpClient {
 
-    protected JenkinsAuthentication authentication;
+    protected final JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client based on Java HTTP client.

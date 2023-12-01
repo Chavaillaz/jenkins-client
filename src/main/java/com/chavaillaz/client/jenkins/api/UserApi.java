@@ -2,8 +2,8 @@ package com.chavaillaz.client.jenkins.api;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.jenkins.domain.Token;
-import com.chavaillaz.client.jenkins.domain.User;
+import com.chavaillaz.client.jenkins.domain.user.Token;
+import com.chavaillaz.client.jenkins.domain.user.User;
 
 public interface UserApi {
 

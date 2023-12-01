@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
-import com.chavaillaz.client.jenkins.domain.Crumb;
+import com.chavaillaz.client.jenkins.domain.user.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
 import lombok.Getter;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
@@ -22,7 +22,7 @@ import org.apache.hc.core5.http.NameValuePair;
 @Getter
 public abstract class AbstractApacheHttpClient extends com.chavaillaz.client.common.apache.AbstractApacheHttpClient {
 
-    protected JenkinsAuthentication authentication;
+    protected final JenkinsAuthentication authentication;
 
     /**
      * Creates a new abstract client based on Apache HTTP client.
