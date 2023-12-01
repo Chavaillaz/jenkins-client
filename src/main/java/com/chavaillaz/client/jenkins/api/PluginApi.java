@@ -1,14 +1,14 @@
 package com.chavaillaz.client.jenkins.api;
 
-import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
-
 import java.util.concurrent.CompletableFuture;
+import java.util.function.UnaryOperator;
 
 import com.chavaillaz.client.jenkins.domain.Plugins;
 
 public interface PluginApi {
 
-    String URL_PLUGINS = "pluginManager/api/json?depth={0}&tree={1}";
+    UnaryOperator<String> XML_PLUGIN_INSTALLATION = id -> "<jenkins><install plugin=\\\"" + id + "\\\"/></jenkins>";
+    String URL_PLUGINS = "pluginManager/api/json?depth={0}";
     String URL_PLUGINS_INSTALLATION = "pluginManager/installNecessaryPlugins";
 
     /**
@@ -17,31 +17,16 @@ public interface PluginApi {
      * @return A {@link CompletableFuture} with the plugins
      */
     default CompletableFuture<Plugins> getPlugins() {
-        return getPlugins(2, deleteWhitespace("""
-                plugins[
-                    dependencies[shortName,version],
-                    downgradable,
-                    enabled,
-                    hasUpdate,
-                    longName,
-                    pinned,
-                    requiredCoreVersion,
-                    shortName,
-                    supportsDynamicLoad,
-                    url,
-                    version
-                ]
-                """));
+        return getPlugins(2);
     }
 
     /**
      * Gets the list of plugins.
      *
      * @param depth The depth level to return
-     * @param tree  The list of fields to return
      * @return A {@link CompletableFuture} with the plugins
      */
-    CompletableFuture<Plugins> getPlugins(Integer depth, String tree);
+    CompletableFuture<Plugins> getPlugins(Integer depth);
 
     /**
      * Installs a new plugin.

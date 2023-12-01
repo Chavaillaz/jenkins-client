@@ -26,15 +26,15 @@ public class JavaHttpPluginApi extends AbstractJavaHttpClient implements PluginA
     }
 
     @Override
-    public CompletableFuture<Plugins> getPlugins(Integer depth, String tree) {
-        return sendAsync(requestBuilder(URL_PLUGINS, depth, tree).GET(), Plugins.class);
+    public CompletableFuture<Plugins> getPlugins(Integer depth) {
+        return sendAsync(requestBuilder(URL_PLUGINS, depth).GET(), Plugins.class);
     }
 
     @Override
     public CompletableFuture<Void> installPlugin(String pluginId) {
         return sendAsync(requestBuilder(URL_PLUGINS_INSTALLATION)
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_XML)
-                .POST(ofString("<jenkins><install plugin=\\\"" + pluginId + "\\\"/></jenkins>")), Void.class);
+                .POST(ofString(XML_PLUGIN_INSTALLATION.apply(pluginId))), Void.class);
     }
 
 }

@@ -1,25 +1,28 @@
 package com.chavaillaz.client.jenkins.domain;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Optional;
 
-import com.chavaillaz.client.jenkins.utility.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
+
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TestReport {
+public class TestCase {
 
+    private int age;
+    private String className;
     private Duration duration;
-    private boolean empty;
-    private int failCount;
-    private int passCount;
-    private int skipCount;
-    private List<TestSuite> suites;
+    private String errorDetails;
+    private String errorStackTrace;
+    private int failedSince;
+    private String name;
+    private boolean skipped;
+    private String skippedMessage;
+    private String status;
+    private String stderr;
+    private String stdout;
 
     @JsonSetter
     public void setDuration(double seconds) {

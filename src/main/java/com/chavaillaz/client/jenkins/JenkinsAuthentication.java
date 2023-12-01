@@ -1,13 +1,17 @@
 package com.chavaillaz.client.jenkins;
 
+import static com.chavaillaz.client.common.AbstractHttpClient.HEADER_COOKIE;
 import static com.chavaillaz.client.common.utility.Utils.encodeBase64;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import com.chavaillaz.client.common.security.AnonymousAuthentication;
 import com.chavaillaz.client.jenkins.domain.Crumb;
+
 import lombok.Getter;
 
 /**
@@ -34,6 +38,20 @@ public class JenkinsAuthentication extends AnonymousAuthentication {
     @Override
     public void fillHeaders(BiConsumer<String, String> addHeader) {
         addHeader.accept("Authorization", getAuthorizationHeader());
+
+        if (getCrumb() != null) {
+            addHeader.accept(HEADER_COOKIE, substringBefore(crumb.getSessionIdCookie(), ";"));
+            addHeader.accept(crumb.getCrumbRequestField(), crumb.getCrumb());
+        }
+    }
+
+    @Override
+    public void fillCookies(BiConsumer<String, String> addCookie) {
+        super.fillCookies(addCookie);
+        if (getCrumb() != null) {
+            String session = substringBefore(crumb.getSessionIdCookie(), ";");
+            addCookie.accept(substringBefore(session, "="), substringAfter(session, "="));
+        }
     }
 
     /**

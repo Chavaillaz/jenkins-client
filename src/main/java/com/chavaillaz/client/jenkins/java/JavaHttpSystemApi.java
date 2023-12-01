@@ -38,11 +38,11 @@ public class JavaHttpSystemApi extends AbstractJavaHttpClient implements SystemA
     protected SystemInfo systemInfoFromHeader(HttpResponse<Void> response) {
         return new SystemInfo(
                 response.headers().firstValue("X-Hudson").orElse(null),
-                response.headers().firstValue("X-Jenkins").orElse(null),
-                response.headers().firstValue("X-Jenkins-Session").orElse(null),
                 response.headers().firstValue("X-Instance-Identity").orElse(null),
-                response.headers().firstValue("X-SSH-Endpoint").orElse(null),
-                response.headers().firstValue("Server").orElse(null)
+                response.headers().firstValue("X-Jenkins-Session").orElse(null),
+                response.headers().firstValue("X-Jenkins").orElse(null),
+                response.headers().firstValue("Server").orElse(null),
+                response.headers().firstValue("X-SSH-Endpoint").orElse(null)
         );
     }
 

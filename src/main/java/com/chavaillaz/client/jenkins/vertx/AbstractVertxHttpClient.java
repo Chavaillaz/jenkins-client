@@ -1,37 +1,37 @@
-package com.chavaillaz.client.jenkins.java;
+package com.chavaillaz.client.jenkins.vertx;
 
 import static com.chavaillaz.client.jenkins.JenkinsClient.JENKINS_COOKIES_JSESSIONID;
 import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
 import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
+import static io.vertx.core.http.HttpMethod.GET;
 
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Map;
 
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.domain.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
 
+import io.vertx.core.MultiMap;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.ext.web.client.HttpResponse;
+import io.vertx.ext.web.client.WebClient;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
-/**
- * Abstract class implementing common parts to call the Jenkins REST API for Java HTTP.
- */
 @Getter
-public abstract class AbstractJavaHttpClient extends com.chavaillaz.client.common.java.AbstractJavaHttpClient {
+public abstract class AbstractVertxHttpClient extends com.chavaillaz.client.common.vertx.AbstractVertxHttpClient {
 
     protected JenkinsAuthentication authentication;
 
     /**
-     * Creates a new abstract client based on Java HTTP client.
+     * Creates a new abstract client based on Vert.x HTTP client.
      *
-     * @param client         The Java HTTP client to use
-     * @param baseUrl        The URL of Jenkins
-     * @param authentication The authentication method
+     * @param client         The web client to use
+     * @param baseUrl        The base URL of endpoints
+     * @param authentication The authentication information
      */
-    protected AbstractJavaHttpClient(HttpClient client, String baseUrl, JenkinsAuthentication authentication) {
+    protected AbstractVertxHttpClient(WebClient client, String baseUrl, JenkinsAuthentication authentication) {
         super(client, baseUrl, authentication);
         this.authentication = authentication;
         // Load in advance the crumb for all requests, even if not necessary
@@ -44,9 +44,7 @@ public abstract class AbstractJavaHttpClient extends com.chavaillaz.client.commo
      * @return The {@link Crumb} object created
      */
     protected Crumb loadCrumb() {
-        HttpRequest.Builder request = requestBuilder(URL_CRUMB, getAuthentication().getUsername()).GET();
-        return client.sendAsync(request.build(), BodyHandlers.ofString())
-                .thenApply(this::checkResponse)
+        return handleAsyncBase(requestBuilder(GET, URL_CRUMB, getAuthentication().getUsername()).send())
                 .thenApply(this::loadCrumb)
                 .join();
     }
@@ -57,13 +55,20 @@ public abstract class AbstractJavaHttpClient extends com.chavaillaz.client.commo
      * @param httpResponse The HTTP response of the crumb issuer
      * @return The {@link Crumb} object created
      */
-    protected Crumb loadCrumb(HttpResponse<String> httpResponse) {
-        Crumb crumb = deserialize(httpResponse.body(), objectMapper.constructType(Crumb.class));
-        httpResponse.headers().allValues(SET_COOKIE).stream()
-                .filter(headerValue -> headerValue.startsWith(JENKINS_COOKIES_JSESSIONID))
+    @SneakyThrows
+    protected Crumb loadCrumb(HttpResponse<Buffer> httpResponse) {
+        Crumb crumb = deserialize(httpResponse.bodyAsString(), Crumb.class);
+        httpResponse.headers().getAll(SET_COOKIE).stream()
+                .filter(value -> value.startsWith(JENKINS_COOKIES_JSESSIONID))
                 .findFirst()
                 .ifPresent(crumb::setSessionIdCookie);
         return crumb;
+    }
+
+    public MultiMap ofFormData(Map<Object, Object> map) {
+        MultiMap form = MultiMap.caseInsensitiveMultiMap();
+        map.forEach((key, value) -> form.set(key.toString(), value.toString()));
+        return form;
     }
 
     @Override
