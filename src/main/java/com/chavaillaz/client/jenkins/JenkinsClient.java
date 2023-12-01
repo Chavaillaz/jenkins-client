@@ -16,8 +16,7 @@ import com.chavaillaz.client.jenkins.vertx.VertxHttpJenkinsClient;
 
 public interface JenkinsClient extends Client<JenkinsClient> {
 
-    String SET_COOKIE = "Set-Cookie";
-    String JENKINS_COOKIES_JSESSIONID = "JSESSIONID";
+    String COOKIE_JSESSIONID = "JSESSIONID";
 
     /**
      * Creates a default {@link JenkinsClient} with Apache HTTP client.

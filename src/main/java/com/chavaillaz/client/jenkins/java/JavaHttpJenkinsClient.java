@@ -28,7 +28,7 @@ public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
 
     @Override
     public HttpClient newHttpClient() {
-        return JavaHttpUtils.newHttpClientBuilder(proxy).build();
+        return JavaHttpUtils.defaultHttpClientBuilder(proxy).build();
     }
 
     @Override

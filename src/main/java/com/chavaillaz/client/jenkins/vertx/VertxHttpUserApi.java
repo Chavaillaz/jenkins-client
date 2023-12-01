@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
-import static com.chavaillaz.client.common.vertx.VertxUtils.ofFormData;
+import static com.chavaillaz.client.common.vertx.VertxUtils.formData;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
@@ -38,14 +38,14 @@ public class VertxHttpUserApi extends AbstractVertxHttpClient implements UserApi
     public CompletableFuture<Token> generateToken(String tokenName) {
         return handleAsync(requestBuilder(POST, URL_USER_TOKEN_GENERATION, getAuthentication().getUsername())
                 .putHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .sendForm(ofFormData(Map.of("newTokenName", tokenName))), Token.class);
+                .sendForm(formData(Map.of("newTokenName", tokenName))), Token.class);
     }
 
     @Override
     public CompletableFuture<Void> revokeToken(String tokenUuid) {
         return handleAsync(requestBuilder(POST, URL_USER_TOKEN_REVOCATION, getAuthentication().getUsername())
                 .putHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .sendForm(ofFormData(Map.of("tokenUuid", tokenUuid))), Void.class);
+                .sendForm(formData(Map.of("tokenUuid", tokenUuid))), Void.class);
     }
 
 }

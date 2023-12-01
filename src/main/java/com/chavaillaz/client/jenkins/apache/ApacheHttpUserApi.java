@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.apache;
 
-import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
+import static com.chavaillaz.client.common.utility.Utils.encodeQuery;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.post;
 import static org.apache.hc.core5.http.ContentType.APPLICATION_JSON;
@@ -39,14 +39,14 @@ public class ApacheHttpUserApi extends AbstractApacheHttpClient implements UserA
     public CompletableFuture<Token> generateToken(String tokenName) {
         return sendAsync(requestBuilder(post(), URL_USER_TOKEN_GENERATION, getAuthentication().getUsername())
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .setBody(queryFromKeyValue(Map.of("newTokenName", tokenName)), APPLICATION_JSON), Token.class);
+                .setBody(encodeQuery(Map.of("newTokenName", tokenName)), APPLICATION_JSON), Token.class);
     }
 
     @Override
     public CompletableFuture<Void> revokeToken(String tokenUuid) {
         return sendAsync(requestBuilder(post(), URL_USER_TOKEN_REVOCATION, getAuthentication().getUsername())
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .setBody(queryFromKeyValue(Map.of("tokenUuid", tokenUuid)), APPLICATION_JSON), Void.class);
+                .setBody(encodeQuery(Map.of("tokenUuid", tokenUuid)), APPLICATION_JSON), Void.class);
     }
 
 }

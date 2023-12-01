@@ -1,7 +1,7 @@
 package com.chavaillaz.client.jenkins.apache;
 
-import static com.chavaillaz.client.common.apache.ApacheHttpUtils.ofFormData;
-import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
+import static com.chavaillaz.client.common.apache.ApacheHttpUtils.formData;
+import static com.chavaillaz.client.common.utility.Utils.encodeQuery;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
@@ -138,7 +138,7 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
     public CompletableFuture<Void> createView(Path path, String viewName) {
         return sendAsync(requestBuilder(post(), URL_VIEW_CREATE, path)
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .addParameters(ofFormData(Map.of(
+                .addParameters(formData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
                         "json", serialize(new ViewCreation(viewName, LIST_VIEW))
@@ -199,7 +199,7 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
 
     @Override
     public CompletableFuture<Void> buildJob(Path path, String jobName, Map<Object, Object> properties) {
-        return sendAsync(requestBuilder(post(), URL_JOB_BUILD_PARAMETERS, path, jobName, queryFromKeyValue(properties)), Void.class);
+        return sendAsync(requestBuilder(post(), URL_JOB_BUILD_PARAMETERS, path, jobName, encodeQuery(properties)), Void.class);
     }
 
     @Override

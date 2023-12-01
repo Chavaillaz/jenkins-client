@@ -1,7 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
-import static com.chavaillaz.client.jenkins.JenkinsClient.JENKINS_COOKIES_JSESSIONID;
-import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
+import static com.chavaillaz.client.jenkins.JenkinsClient.COOKIE_JSESSIONID;
 import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 import static io.vertx.core.http.HttpMethod.GET;
 
@@ -54,8 +53,8 @@ public abstract class AbstractVertxHttpClient extends com.chavaillaz.client.comm
     @SneakyThrows
     protected Crumb loadCrumb(HttpResponse<Buffer> httpResponse) {
         Crumb crumb = deserialize(httpResponse.bodyAsString(), Crumb.class);
-        httpResponse.headers().getAll(SET_COOKIE).stream()
-                .filter(value -> value.startsWith(JENKINS_COOKIES_JSESSIONID))
+        httpResponse.headers().getAll(HEADER_SET_COOKIE).stream()
+                .filter(value -> value.startsWith(COOKIE_JSESSIONID))
                 .findFirst()
                 .ifPresent(crumb::setSessionIdCookie);
         return crumb;

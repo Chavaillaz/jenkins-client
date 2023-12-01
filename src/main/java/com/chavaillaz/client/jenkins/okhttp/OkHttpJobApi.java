@@ -1,7 +1,7 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
-import static com.chavaillaz.client.common.okhttp.OkHttpUtils.ofFormData;
-import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
+import static com.chavaillaz.client.common.okhttp.OkHttpUtils.formData;
+import static com.chavaillaz.client.common.utility.Utils.encodeQuery;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
 import static okhttp3.RequestBody.create;
@@ -135,7 +135,7 @@ public class OkHttpJobApi extends AbstractOkHttpClient implements JobApi {
     public CompletableFuture<Void> createView(Path path, String viewName) {
         return sendAsync(requestBuilder(URL_VIEW_CREATE, path)
                 .header(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .post(ofFormData(Map.of(
+                .post(formData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
                         "json", serialize(new ViewCreation(viewName, LIST_VIEW))
@@ -194,7 +194,7 @@ public class OkHttpJobApi extends AbstractOkHttpClient implements JobApi {
 
     @Override
     public CompletableFuture<Void> buildJob(Path path, String jobName, Map<Object, Object> properties) {
-        return sendAsync(requestBuilder(URL_JOB_BUILD_PARAMETERS, path, jobName, queryFromKeyValue(properties)).post(EMPTY_BODY), Void.class);
+        return sendAsync(requestBuilder(URL_JOB_BUILD_PARAMETERS, path, jobName, encodeQuery(properties)).post(EMPTY_BODY), Void.class);
     }
 
     @Override

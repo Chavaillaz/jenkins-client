@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.apache;
 
-import static com.chavaillaz.client.common.apache.ApacheHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.apache.ApacheHttpUtils.formData;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.post;
 
@@ -43,7 +43,7 @@ public class ApacheHttpQueueApi extends AbstractApacheHttpClient implements Queu
     public CompletableFuture<Void> cancelQueueItem(long itemId) {
         return sendAsync(requestBuilder(post(), URL_QUEUE_ITEM_CANCEL, itemId)
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .addParameters(ofFormData(Map.of("id", itemId))), Void.class);
+                .addParameters(formData(Map.of("id", itemId))), Void.class);
     }
 
 }

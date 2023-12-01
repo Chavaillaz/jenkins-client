@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.java;
 
-import static com.chavaillaz.client.common.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.java.JavaHttpUtils.formData;
 
 import java.net.http.HttpClient;
 import java.util.Map;
@@ -36,14 +36,14 @@ public class JavaHttpUserApi extends AbstractJavaHttpClient implements UserApi {
     public CompletableFuture<Token> generateToken(String tokenName) {
         return sendAsync(requestBuilder(URL_USER_TOKEN_GENERATION, getAuthentication().getUsername())
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .POST(ofFormData(Map.of("newTokenName", tokenName))), Token.class);
+                .POST(formData(Map.of("newTokenName", tokenName))), Token.class);
     }
 
     @Override
     public CompletableFuture<Void> revokeToken(String tokenUuid) {
         return sendAsync(requestBuilder(URL_USER_TOKEN_REVOCATION, getAuthentication().getUsername())
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .POST(ofFormData(Map.of("tokenUuid", tokenUuid))), Void.class);
+                .POST(formData(Map.of("tokenUuid", tokenUuid))), Void.class);
     }
 
 }

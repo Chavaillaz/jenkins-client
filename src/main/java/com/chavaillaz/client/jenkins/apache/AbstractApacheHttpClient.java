@@ -1,7 +1,6 @@
 package com.chavaillaz.client.jenkins.apache;
 
-import static com.chavaillaz.client.jenkins.JenkinsClient.JENKINS_COOKIES_JSESSIONID;
-import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
+import static com.chavaillaz.client.jenkins.JenkinsClient.COOKIE_JSESSIONID;
 import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 
@@ -57,9 +56,9 @@ public abstract class AbstractApacheHttpClient extends com.chavaillaz.client.com
      */
     protected Crumb loadCrumb(SimpleHttpResponse httpResponse) {
         Crumb crumb = deserialize(httpResponse.getBodyText(), Crumb.class);
-        Arrays.stream(httpResponse.getHeaders(SET_COOKIE))
+        Arrays.stream(httpResponse.getHeaders(HEADER_SET_COOKIE))
                 .map(NameValuePair::getValue)
-                .filter(value -> value.startsWith(JENKINS_COOKIES_JSESSIONID))
+                .filter(value -> value.startsWith(COOKIE_JSESSIONID))
                 .findFirst()
                 .ifPresent(crumb::setSessionIdCookie);
         return crumb;

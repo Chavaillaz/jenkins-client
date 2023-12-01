@@ -1,7 +1,7 @@
 package com.chavaillaz.client.jenkins.vertx;
 
-import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
-import static com.chavaillaz.client.common.vertx.VertxUtils.ofFormData;
+import static com.chavaillaz.client.common.utility.Utils.encodeQuery;
+import static com.chavaillaz.client.common.vertx.VertxUtils.formData;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
 import static io.vertx.core.buffer.Buffer.buffer;
@@ -139,7 +139,7 @@ public class VertxHttpJobApi extends AbstractVertxHttpClient implements JobApi {
     public CompletableFuture<Void> createView(Path path, String viewName) {
         return handleAsync(requestBuilder(POST, URL_VIEW_CREATE, path)
                 .putHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .sendForm(ofFormData(Map.of(
+                .sendForm(formData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
                         "json", serialize(new ViewCreation(viewName, LIST_VIEW))
@@ -202,7 +202,7 @@ public class VertxHttpJobApi extends AbstractVertxHttpClient implements JobApi {
 
     @Override
     public CompletableFuture<Void> buildJob(Path path, String jobName, Map<Object, Object> properties) {
-        return handleAsync(requestBuilder(POST, URL_JOB_BUILD_PARAMETERS, path, jobName, queryFromKeyValue(properties)).send(), Void.class);
+        return handleAsync(requestBuilder(POST, URL_JOB_BUILD_PARAMETERS, path, jobName, encodeQuery(properties)).send(), Void.class);
     }
 
     @Override

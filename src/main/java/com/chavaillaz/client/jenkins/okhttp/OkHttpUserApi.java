@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
-import static com.chavaillaz.client.common.okhttp.OkHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.okhttp.OkHttpUtils.formData;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -36,14 +36,14 @@ public class OkHttpUserApi extends AbstractOkHttpClient implements UserApi {
     public CompletableFuture<Token> generateToken(String tokenName) {
         return sendAsync(requestBuilder(URL_USER_TOKEN_GENERATION, getAuthentication().getUsername())
                 .header(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .post(ofFormData(Map.of("newTokenName", tokenName))), Token.class);
+                .post(formData(Map.of("newTokenName", tokenName))), Token.class);
     }
 
     @Override
     public CompletableFuture<Void> revokeToken(String tokenUuid) {
         return sendAsync(requestBuilder(URL_USER_TOKEN_REVOCATION, getAuthentication().getUsername())
                 .header(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .post(ofFormData(Map.of("tokenUuid", tokenUuid))), Void.class);
+                .post(formData(Map.of("tokenUuid", tokenUuid))), Void.class);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.java;
 
-import static com.chavaillaz.client.common.java.JavaHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.java.JavaHttpUtils.formData;
 
 import java.net.http.HttpClient;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class JavaHttpQueueApi extends AbstractJavaHttpClient implements QueueApi
     public CompletableFuture<Void> cancelQueueItem(long itemId) {
         return sendAsync(requestBuilder(URL_QUEUE_ITEM_CANCEL, itemId)
                 .setHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .POST(ofFormData(Map.of("id", itemId))), Void.class);
+                .POST(formData(Map.of("id", itemId))), Void.class);
     }
 
 }

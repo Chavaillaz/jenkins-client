@@ -1,8 +1,7 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
 import static com.chavaillaz.client.common.okhttp.OkHttpUtils.getBody;
-import static com.chavaillaz.client.jenkins.JenkinsClient.JENKINS_COOKIES_JSESSIONID;
-import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
+import static com.chavaillaz.client.jenkins.JenkinsClient.COOKIE_JSESSIONID;
 import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 
 import com.chavaillaz.client.common.exception.ResponseException;
@@ -53,8 +52,8 @@ public abstract class AbstractOkHttpClient extends com.chavaillaz.client.common.
     @SneakyThrows
     protected Crumb loadCrumb(Response httpResponse) {
         Crumb crumb = deserialize(getBody(httpResponse), Crumb.class);
-        httpResponse.headers().toMultimap().get(SET_COOKIE).stream()
-                .filter(value -> value.startsWith(JENKINS_COOKIES_JSESSIONID))
+        httpResponse.headers().toMultimap().get(HEADER_SET_COOKIE).stream()
+                .filter(value -> value.startsWith(COOKIE_JSESSIONID))
                 .findFirst()
                 .ifPresent(crumb::setSessionIdCookie);
         return crumb;

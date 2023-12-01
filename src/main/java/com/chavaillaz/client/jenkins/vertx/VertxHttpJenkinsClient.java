@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
-import static com.chavaillaz.client.common.vertx.VertxUtils.newWebClientOptions;
+import static com.chavaillaz.client.common.vertx.VertxUtils.defaultWebClientOptions;
 
 import com.chavaillaz.client.jenkins.AbstractJenkinsClient;
 import com.chavaillaz.client.jenkins.JenkinsClient;
@@ -33,7 +33,7 @@ public class VertxHttpJenkinsClient extends AbstractJenkinsClient<WebClient> {
 
     @Override
     public WebClient newHttpClient() {
-        return WebClient.create(vertx, newWebClientOptions(proxy));
+        return WebClient.create(vertx, defaultWebClientOptions(proxy));
     }
 
     @Override

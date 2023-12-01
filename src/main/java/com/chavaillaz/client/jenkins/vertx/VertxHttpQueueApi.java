@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
-import static com.chavaillaz.client.common.vertx.VertxUtils.ofFormData;
+import static com.chavaillaz.client.common.vertx.VertxUtils.formData;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
@@ -43,7 +43,7 @@ public class VertxHttpQueueApi extends AbstractVertxHttpClient implements QueueA
     public CompletableFuture<Void> cancelQueueItem(long itemId) {
         return handleAsync(requestBuilder(POST, URL_QUEUE_ITEM_CANCEL, itemId)
                 .putHeader(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .sendForm(ofFormData(Map.of("id", itemId))), Void.class);
+                .sendForm(formData(Map.of("id", itemId))), Void.class);
     }
 
 }

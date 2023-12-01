@@ -1,6 +1,6 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
-import static com.chavaillaz.client.common.okhttp.OkHttpUtils.ofFormData;
+import static com.chavaillaz.client.common.okhttp.OkHttpUtils.formData;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -41,7 +41,7 @@ public class OkHttpQueueApi extends AbstractOkHttpClient implements QueueApi {
     public CompletableFuture<Void> cancelQueueItem(long itemId) {
         return sendAsync(requestBuilder(URL_QUEUE_ITEM_CANCEL, itemId)
                 .header(HEADER_CONTENT_TYPE, HEADER_CONTENT_FORM)
-                .post(ofFormData(Map.of("id", itemId))), Void.class);
+                .post(formData(Map.of("id", itemId))), Void.class);
     }
 
 }
