@@ -1,5 +1,6 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
+import static com.chavaillaz.client.common.okhttp.OkHttpUtils.ofFormData;
 import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
@@ -8,8 +9,6 @@ import static okhttp3.RequestBody.create;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
-import org.apache.commons.lang3.math.NumberUtils;
 
 import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
@@ -21,10 +20,9 @@ import com.chavaillaz.client.jenkins.domain.JobInfo;
 import com.chavaillaz.client.jenkins.domain.Path;
 import com.chavaillaz.client.jenkins.domain.TestReport;
 import com.chavaillaz.client.jenkins.domain.ViewInfo;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.chavaillaz.client.jenkins.domain.view.ViewCreation;
 import okhttp3.OkHttpClient;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * Implementation of {@link JobApi} for OkHttp.
@@ -140,7 +138,7 @@ public class OkHttpJobApi extends AbstractOkHttpClient implements JobApi {
                 .post(ofFormData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
-                        "json", serialize(new ViewForm(viewName, LIST_VIEW))
+                        "json", serialize(new ViewCreation(viewName, LIST_VIEW))
                 ))), Void.class);
     }
 
@@ -176,8 +174,7 @@ public class OkHttpJobApi extends AbstractOkHttpClient implements JobApi {
 
     @Override
     public CompletableFuture<Void> deleteFolder(Path path, String folderName) {
-        return sendAsync(requestBuilder(URL_FOLDER_DELETE, path, folderName)
-                .post(EMPTY_BODY), Void.class);
+        return sendAsync(requestBuilder(URL_FOLDER_DELETE, path, folderName).post(EMPTY_BODY), Void.class);
     }
 
     @Override
@@ -203,15 +200,6 @@ public class OkHttpJobApi extends AbstractOkHttpClient implements JobApi {
     @Override
     public CompletableFuture<Void> stopBuild(Path path, String jobName, int buildNumber) {
         return sendAsync(requestBuilder(URL_JOB_BUILD_STOP, path, jobName, buildNumber).post(EMPTY_BODY), Void.class);
-    }
-
-    @Data
-    @AllArgsConstructor
-    protected static class ViewForm {
-
-        private String name;
-        private String mode;
-
     }
 
 }

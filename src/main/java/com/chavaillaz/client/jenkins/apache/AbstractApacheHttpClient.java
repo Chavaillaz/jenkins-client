@@ -5,24 +5,16 @@ import static com.chavaillaz.client.jenkins.JenkinsClient.SET_COOKIE;
 import static com.chavaillaz.client.jenkins.api.UserApi.URL_CRUMB;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.common.apache.CompletableFutureCallback;
 import com.chavaillaz.client.common.exception.ResponseException;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.domain.Crumb;
 import com.chavaillaz.client.jenkins.exception.JenkinsResponseException;
 import lombok.Getter;
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
-import org.apache.hc.client5.http.async.methods.SimpleRequestBuilder;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.core5.http.NameValuePair;
-import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 /**
  * Abstract class implementing common parts to call the Jenkins REST API for Apache HTTP.
@@ -71,20 +63,6 @@ public abstract class AbstractApacheHttpClient extends com.chavaillaz.client.com
                 .findFirst()
                 .ifPresent(crumb::setSessionIdCookie);
         return crumb;
-    }
-
-    @Override
-    protected CompletableFuture<SimpleHttpResponse> sendAsyncBase(SimpleRequestBuilder requestBuilder) {
-        SimpleHttpRequest request = requestBuilder.build();
-        CompletableFuture<SimpleHttpResponse> completableFuture = new CompletableFuture<>();
-        client.execute(request, new CompletableFutureCallback(this, request, completableFuture));
-        return completableFuture;
-    }
-
-    public NameValuePair[] ofFormData(Map<Object, Object> map) {
-        List<NameValuePair> parameters = new ArrayList<>();
-        map.forEach((key, value) -> parameters.add(new BasicNameValuePair(key.toString(), value.toString())));
-        return parameters.toArray(new NameValuePair[0]);
     }
 
     @Override

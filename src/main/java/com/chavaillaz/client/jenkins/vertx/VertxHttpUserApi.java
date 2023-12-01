@@ -1,5 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
+import static com.chavaillaz.client.common.vertx.VertxUtils.ofFormData;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
@@ -10,7 +11,6 @@ import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.domain.Token;
 import com.chavaillaz.client.jenkins.domain.User;
-
 import io.vertx.ext.web.client.WebClient;
 
 /**

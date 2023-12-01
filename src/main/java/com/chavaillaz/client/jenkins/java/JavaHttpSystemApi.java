@@ -29,8 +29,7 @@ public class JavaHttpSystemApi extends AbstractJavaHttpClient implements SystemA
 
     @Override
     public CompletableFuture<SystemInfo> getSystemInfo() {
-        return client.sendAsync(requestBuilder(URL_SYSTEM)
-                        .method("HEAD", noBody()).build(), discarding())
+        return client.sendAsync(requestBuilder(URL_SYSTEM).method("HEAD", noBody()).build(), discarding())
                 .thenApply(this::checkResponse)
                 .thenApply(this::systemInfoFromHeader);
     }

@@ -1,5 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
+import static com.chavaillaz.client.common.vertx.VertxUtils.ofFormData;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
@@ -10,7 +11,6 @@ import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.domain.QueueItem;
 import com.chavaillaz.client.jenkins.domain.QueueItems;
-
 import io.vertx.ext.web.client.WebClient;
 
 /**

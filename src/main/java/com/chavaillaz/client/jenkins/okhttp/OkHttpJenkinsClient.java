@@ -10,7 +10,6 @@ import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
-
 import okhttp3.OkHttpClient;
 
 /**
@@ -29,7 +28,7 @@ public class OkHttpJenkinsClient extends AbstractJenkinsClient<OkHttpClient> {
 
     @Override
     public OkHttpClient newHttpClient() {
-        return OkHttpUtils.newHttpClient(proxy);
+        return OkHttpUtils.newHttpClientBuilder(proxy).build();
     }
 
     @Override

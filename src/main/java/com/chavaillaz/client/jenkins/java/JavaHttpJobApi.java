@@ -12,8 +12,6 @@ import java.net.http.HttpClient;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.JobApi;
@@ -24,9 +22,8 @@ import com.chavaillaz.client.jenkins.domain.JobInfo;
 import com.chavaillaz.client.jenkins.domain.Path;
 import com.chavaillaz.client.jenkins.domain.TestReport;
 import com.chavaillaz.client.jenkins.domain.ViewInfo;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.chavaillaz.client.jenkins.domain.view.ViewCreation;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * Implementation of {@link JobApi} for Java HTTP.
@@ -144,7 +141,7 @@ public class JavaHttpJobApi extends AbstractJavaHttpClient implements JobApi {
                 .POST(ofFormData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
-                        "json", serialize(new ViewForm(viewName, LIST_VIEW))
+                        "json", serialize(new ViewCreation(viewName, LIST_VIEW))
                 ))), Void.class);
     }
 
@@ -210,15 +207,6 @@ public class JavaHttpJobApi extends AbstractJavaHttpClient implements JobApi {
     @Override
     public CompletableFuture<Void> stopBuild(Path path, String jobName, int buildNumber) {
         return sendAsync(requestBuilder(URL_JOB_BUILD_STOP, path, jobName, buildNumber).POST(noBody()), Void.class);
-    }
-
-    @Data
-    @AllArgsConstructor
-    protected static class ViewForm {
-
-        private String name;
-        private String mode;
-
     }
 
 }

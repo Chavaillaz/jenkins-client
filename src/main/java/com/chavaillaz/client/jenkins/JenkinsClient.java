@@ -1,6 +1,9 @@
 package com.chavaillaz.client.jenkins;
 
+import static io.vertx.core.Vertx.vertx;
+
 import com.chavaillaz.client.common.Client;
+import com.chavaillaz.client.jenkins.apache.ApacheHttpJenkinsClient;
 import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.api.PipelineApi;
 import com.chavaillaz.client.jenkins.api.PluginApi;
@@ -9,11 +12,22 @@ import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.java.JavaHttpJenkinsClient;
+import com.chavaillaz.client.jenkins.okhttp.OkHttpJenkinsClient;
+import com.chavaillaz.client.jenkins.vertx.VertxHttpJenkinsClient;
 
 public interface JenkinsClient extends Client<JenkinsClient> {
 
     String SET_COOKIE = "Set-Cookie";
     String JENKINS_COOKIES_JSESSIONID = "JSESSIONID";
+
+    /**
+     * Creates a default {@link JenkinsClient} with Apache HTTP client.
+     *
+     * @param jenkinsUrl The Jenkins URL
+     */
+    static ApacheHttpJenkinsClient apacheClient(String jenkinsUrl) {
+        return new ApacheHttpJenkinsClient(jenkinsUrl);
+    }
 
     /**
      * Creates a default {@link JenkinsClient} with Java HTTP client.
@@ -22,6 +36,24 @@ public interface JenkinsClient extends Client<JenkinsClient> {
      */
     static JavaHttpJenkinsClient javaClient(String jenkinsUrl) {
         return new JavaHttpJenkinsClient(jenkinsUrl);
+    }
+
+    /**
+     * Creates a default {@link JenkinsClient} with OkHttp client.
+     *
+     * @param jenkinsUrl The Jenkins URL
+     */
+    static OkHttpJenkinsClient okHttpClient(String jenkinsUrl) {
+        return new OkHttpJenkinsClient(jenkinsUrl);
+    }
+
+    /**
+     * Creates a default {@link JenkinsClient} with Vert.x HTTP client.
+     *
+     * @param jenkinsUrl The Jenkins URL
+     */
+    static VertxHttpJenkinsClient vertxClient(String jenkinsUrl) {
+        return new VertxHttpJenkinsClient(vertx(), jenkinsUrl);
     }
 
     /**

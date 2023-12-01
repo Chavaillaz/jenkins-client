@@ -1,17 +1,17 @@
 package com.chavaillaz.client.jenkins.apache;
 
+import static com.chavaillaz.client.common.apache.ApacheHttpUtils.ofFormData;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.get;
 import static org.apache.hc.client5.http.async.methods.SimpleRequestBuilder.post;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.domain.QueueItem;
 import com.chavaillaz.client.jenkins.domain.QueueItems;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link QueueApi} for Apache HTTP.

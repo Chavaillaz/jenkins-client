@@ -1,5 +1,7 @@
 package com.chavaillaz.client.jenkins.okhttp;
 
+import static com.chavaillaz.client.common.okhttp.OkHttpUtils.ofFormData;
+
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -7,7 +9,6 @@ import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.domain.Token;
 import com.chavaillaz.client.jenkins.domain.User;
-
 import okhttp3.OkHttpClient;
 
 /**

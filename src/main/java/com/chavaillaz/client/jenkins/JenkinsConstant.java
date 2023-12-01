@@ -15,7 +15,7 @@ public class JenkinsConstant {
     /**
      * Pattern to extract error messages, sometimes written by Jenkins in HTML.
      */
-    public static final Pattern ERRORS_HTML_PATTERN = Pattern.compile("<h1>Error</h1><p>(.*)</div>");
+    public static final Pattern ERRORS_HTML_PATTERN = Pattern.compile("<h1>Error</h1><p>(.*?)</div>");
 
     /**
      * Pattern to extract the node number from a URL.

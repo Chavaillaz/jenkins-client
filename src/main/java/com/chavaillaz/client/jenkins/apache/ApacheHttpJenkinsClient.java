@@ -1,7 +1,5 @@
 package com.chavaillaz.client.jenkins.apache;
 
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.common.apache.ApacheHttpUtils;
 import com.chavaillaz.client.jenkins.AbstractJenkinsClient;
 import com.chavaillaz.client.jenkins.JenkinsClient;
@@ -12,6 +10,7 @@ import com.chavaillaz.client.jenkins.api.QueueApi;
 import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link JenkinsClient} for Apache HTTP.
@@ -29,7 +28,7 @@ public class ApacheHttpJenkinsClient extends AbstractJenkinsClient<CloseableHttp
 
     @Override
     public CloseableHttpAsyncClient newHttpClient() {
-        return ApacheHttpUtils.newHttpClient(proxy);
+        return ApacheHttpUtils.newHttpClientBuilder(proxy).build();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.chavaillaz.client.jenkins.apache;
 
+import static com.chavaillaz.client.common.apache.ApacheHttpUtils.ofFormData;
 import static com.chavaillaz.client.common.utility.Utils.queryFromKeyValue;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.FOLDER_MODE;
 import static com.chavaillaz.client.jenkins.JenkinsConstant.LIST_VIEW;
@@ -11,9 +12,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-
 import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.JobApi;
@@ -24,9 +22,9 @@ import com.chavaillaz.client.jenkins.domain.JobInfo;
 import com.chavaillaz.client.jenkins.domain.Path;
 import com.chavaillaz.client.jenkins.domain.TestReport;
 import com.chavaillaz.client.jenkins.domain.ViewInfo;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.chavaillaz.client.jenkins.domain.view.ViewCreation;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
 /**
  * Implementation of {@link JobApi} for Apache HTTP.
@@ -143,7 +141,7 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
                 .addParameters(ofFormData(Map.of(
                         "name", viewName,
                         "mode", LIST_VIEW,
-                        "json", serialize(new ViewForm(viewName, LIST_VIEW))
+                        "json", serialize(new ViewCreation(viewName, LIST_VIEW))
                 ))), Void.class);
     }
 
@@ -207,15 +205,6 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
     @Override
     public CompletableFuture<Void> stopBuild(Path path, String jobName, int buildNumber) {
         return sendAsync(requestBuilder(post(), URL_JOB_BUILD_STOP, path, jobName, buildNumber), Void.class);
-    }
-
-    @Data
-    @AllArgsConstructor
-    protected static class ViewForm {
-
-        private String name;
-        private String mode;
-
     }
 
 }
