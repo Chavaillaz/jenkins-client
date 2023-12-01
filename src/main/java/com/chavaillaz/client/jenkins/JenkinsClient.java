@@ -8,7 +8,6 @@ import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.api.PipelineApi;
 import com.chavaillaz.client.jenkins.api.PluginApi;
 import com.chavaillaz.client.jenkins.api.QueueApi;
-import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
 import com.chavaillaz.client.jenkins.java.JavaHttpJenkinsClient;
@@ -83,13 +82,6 @@ public interface JenkinsClient extends Client<JenkinsClient> {
      * @return The queue client
      */
     QueueApi getQueueApi();
-
-    /**
-     * Gets the statistics client
-     *
-     * @return The statistics client
-     */
-    StatisticsApi getStatisticsApi();
 
     /**
      * Gets the system client

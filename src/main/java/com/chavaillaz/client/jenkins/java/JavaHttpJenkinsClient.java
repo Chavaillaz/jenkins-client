@@ -9,7 +9,6 @@ import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.api.PipelineApi;
 import com.chavaillaz.client.jenkins.api.PluginApi;
 import com.chavaillaz.client.jenkins.api.QueueApi;
-import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
 
@@ -50,11 +49,6 @@ public class JavaHttpJenkinsClient extends AbstractJenkinsClient<HttpClient> {
     @Override
     public QueueApi getQueueApi() {
         return queueApi.get(() -> new JavaHttpQueueApi(newHttpClient(), baseUrl, authentication));
-    }
-
-    @Override
-    public StatisticsApi getStatisticsApi() {
-        return statisticsApi.get(() -> new JavaHttpStatisticsApi(newHttpClient(), baseUrl, authentication));
     }
 
     @Override

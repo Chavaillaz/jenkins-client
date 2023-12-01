@@ -7,7 +7,6 @@ import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.api.PipelineApi;
 import com.chavaillaz.client.jenkins.api.PluginApi;
 import com.chavaillaz.client.jenkins.api.QueueApi;
-import com.chavaillaz.client.jenkins.api.StatisticsApi;
 import com.chavaillaz.client.jenkins.api.SystemApi;
 import com.chavaillaz.client.jenkins.api.UserApi;
 
@@ -22,7 +21,6 @@ public abstract class AbstractJenkinsClient<C> extends AbstractClient<C, Jenkins
     protected final LazyCachedObject<PipelineApi> pipelineApi = new LazyCachedObject<>();
     protected final LazyCachedObject<PluginApi> pluginApi = new LazyCachedObject<>();
     protected final LazyCachedObject<QueueApi> queueApi = new LazyCachedObject<>();
-    protected final LazyCachedObject<StatisticsApi> statisticsApi = new LazyCachedObject<>();
     protected final LazyCachedObject<SystemApi> systemApi = new LazyCachedObject<>();
     protected final LazyCachedObject<UserApi> userApi = new LazyCachedObject<>();
 

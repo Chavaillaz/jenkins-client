@@ -2,11 +2,13 @@ package com.chavaillaz.client.jenkins.api;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.chavaillaz.client.jenkins.domain.system.Load;
 import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 
 public interface SystemApi {
 
     String URL_SYSTEM = "/";
+    String URL_LOAD = "/overallLoad/api/json";
     String URL_QUIET_DOWN_START = "/quietDown";
     String URL_QUIET_DOWN_CANCELLATION = "/cancelQuietDown";
     String URL_RESTART = "/restart";
@@ -14,6 +16,13 @@ public interface SystemApi {
     String URL_EXIT = "/exit";
     String URL_EXIT_SAFE = "/safeExit";
     String URL_RELOAD = "/reload";
+
+    /**
+     * Gets the overall load for the entire system (the master and all the agents combined) and all the jobs that are running on it.
+     *
+     * @return A {@link CompletableFuture} with the load
+     */
+    CompletableFuture<Load> getOverallLoad();
 
     /**
      * Gets the system information of Jenkins.

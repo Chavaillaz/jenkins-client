@@ -1,5 +1,6 @@
 package com.chavaillaz.client.jenkins.vertx;
 
+import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.HEAD;
 import static io.vertx.core.http.HttpMethod.POST;
 
@@ -7,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.domain.system.Load;
 import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.web.client.HttpResponse;
@@ -43,6 +45,11 @@ public class VertxHttpSystemApi extends AbstractVertxHttpClient implements Syste
                 response.getHeader("Server"),
                 response.getHeader("X-SSH-Endpoint")
         );
+    }
+
+    @Override
+    public CompletableFuture<Load> getOverallLoad() {
+        return handleAsync(requestBuilder(GET, URL_LOAD).send(), Load.class);
     }
 
     @Override

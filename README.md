@@ -144,12 +144,10 @@ It requires the following dependency:
     - `getQueueItem(long queueId)`
     - `getQueueItemOptional(long queueId)`
     - `cancelQueueItem(long id)`
-- **[StatisticsApi](src/main/java/com/chavaillaz/client/jenkins/api/StatisticsApi.java) -
-  Everything for load statistics**
-    - `getOverallLoad()`
 - **[SystemApi](src/main/java/com/chavaillaz/client/jenkins/api/SystemApi.java) -
   Everything for system management**
     - `getSystemInfo()`
+    - `getOverallLoad()`
     - `quietDown()`
     - `cancelQuietDown()`
     - `restart()`

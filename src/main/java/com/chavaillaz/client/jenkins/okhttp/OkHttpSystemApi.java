@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.domain.system.Load;
 import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -39,6 +40,11 @@ public class OkHttpSystemApi extends AbstractOkHttpClient implements SystemApi {
                 response.header("Server"),
                 response.header("X-SSH-Endpoint")
         );
+    }
+
+    @Override
+    public CompletableFuture<Load> getOverallLoad() {
+        return sendAsync(requestBuilder(URL_LOAD).get(), Load.class);
     }
 
     @Override

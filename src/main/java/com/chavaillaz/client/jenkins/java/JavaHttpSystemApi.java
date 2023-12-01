@@ -9,6 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.SystemApi;
+import com.chavaillaz.client.jenkins.domain.system.Load;
 import com.chavaillaz.client.jenkins.domain.system.SystemInfo;
 
 /**
@@ -43,6 +44,11 @@ public class JavaHttpSystemApi extends AbstractJavaHttpClient implements SystemA
                 response.headers().firstValue("Server").orElse(null),
                 response.headers().firstValue("X-SSH-Endpoint").orElse(null)
         );
+    }
+
+    @Override
+    public CompletableFuture<Load> getOverallLoad() {
+        return sendAsync(requestBuilder(URL_LOAD).GET(), Load.class);
     }
 
     @Override
