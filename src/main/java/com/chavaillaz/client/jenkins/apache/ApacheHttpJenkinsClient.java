@@ -27,7 +27,9 @@ public class ApacheHttpJenkinsClient extends AbstractJenkinsClient<CloseableHttp
 
     @Override
     public CloseableHttpAsyncClient newHttpClient() {
-        return ApacheHttpUtils.defaultHttpClientBuilder(proxy).build();
+        return ApacheHttpUtils.defaultHttpClientBuilder(proxy)
+                .disableRedirectHandling()
+                .build();
     }
 
     @Override

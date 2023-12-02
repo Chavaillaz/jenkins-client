@@ -33,7 +33,8 @@ public class VertxHttpJenkinsClient extends AbstractJenkinsClient<WebClient> {
 
     @Override
     public WebClient newHttpClient() {
-        return WebClient.create(vertx, defaultWebClientOptions(proxy));
+        return WebClient.create(vertx, defaultWebClientOptions(proxy)
+                .setFollowRedirects(false));
     }
 
     @Override

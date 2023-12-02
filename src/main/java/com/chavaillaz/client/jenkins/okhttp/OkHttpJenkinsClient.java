@@ -27,7 +27,9 @@ public class OkHttpJenkinsClient extends AbstractJenkinsClient<OkHttpClient> {
 
     @Override
     public OkHttpClient newHttpClient() {
-        return OkHttpUtils.defaultHttpClientBuilder(proxy).build();
+        return OkHttpUtils.defaultHttpClientBuilder(proxy)
+                .followRedirects(false)
+                .build();
     }
 
     @Override
