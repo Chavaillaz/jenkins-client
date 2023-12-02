@@ -23,13 +23,12 @@ public class Path {
     private List<String> folders = new LinkedList<>();
 
     /**
-     * Represents a path composed by the given folders hierarchy.
+     * Creates a path composed of the given folders hierarchy.
      *
      * @param folders The hierarchy of folders
-     * @return The corresponding path
      */
-    public static Path of(String... folders) {
-        return new Path(Arrays.asList(folders));
+    public Path(String... folders) {
+        this.folders = Arrays.asList(folders);
     }
 
     /**
