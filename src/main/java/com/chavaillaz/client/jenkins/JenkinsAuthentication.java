@@ -19,9 +19,9 @@ import lombok.Getter;
 @Getter
 public class JenkinsAuthentication extends AnonymousAuthentication {
 
-    private final String username;
-    private final String password;
-    private Crumb crumb;
+    protected final String username;
+    protected final String password;
+    protected Crumb crumb;
 
     /**
      * Creates a new authentication configuration.
