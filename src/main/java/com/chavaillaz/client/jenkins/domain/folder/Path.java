@@ -20,7 +20,7 @@ public class Path {
      */
     public static final Path ROOT = new Path();
 
-    private List<String> folders = new LinkedList<>();
+    protected List<String> folders = new LinkedList<>();
 
     /**
      * Creates a path composed of the given folders hierarchy.
