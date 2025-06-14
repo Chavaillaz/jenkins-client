@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.domain.folder.Folder;
@@ -23,6 +22,7 @@ import com.chavaillaz.client.jenkins.domain.job.test.CoverageReport;
 import com.chavaillaz.client.jenkins.domain.job.test.TestReport;
 import com.chavaillaz.client.jenkins.domain.view.ViewCreation;
 import com.chavaillaz.client.jenkins.domain.view.ViewInfo;
+import com.chavaillaz.client.jenkins.utility.Utils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 
@@ -60,31 +60,31 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
     @Override
     public CompletableFuture<String> getFolderConfiguration(Path path) {
         return sendAsync(requestBuilder(get(), URL_FOLDER_CONFIGURATION, path))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobConfiguration(Path path, String jobName) {
         return sendAsync(requestBuilder(get(), URL_JOB_CONFIGURATION, path, jobName))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getViewConfiguration(Path path, String viewName) {
         return sendAsync(requestBuilder(get(), URL_VIEW_CONFIGURATION, path, viewName))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobDescription(Path path, String jobName) {
         return sendAsync(requestBuilder(get(), URL_JOB_DESCRIPTION, path, jobName))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<Integer> getLastBuildNumber(Path path, String jobName) {
         return sendAsync(requestBuilder(get(), URL_JOB_LAST_BUILD_NUMBER, path, jobName))
-                .thenApply(Utils::readInputStream)
+                .thenApply(Utils::uncheckReadInputStream)
                 .thenApply(NumberUtils::toInt)
                 .exceptionally(exception -> null);
     }
@@ -114,13 +114,13 @@ public class ApacheHttpJobApi extends AbstractApacheHttpClient implements JobApi
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int bufferOffset) {
         return sendAsync(requestBuilder(get(), URL_JOB_LAST_BUILD_CONSOLE, path, jobName, bufferOffset))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int buildNumber, int bufferOffset) {
         return sendAsync(requestBuilder(get(), URL_JOB_BUILD_CONSOLE, path, jobName, buildNumber, bufferOffset))
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override

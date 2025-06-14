@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.chavaillaz.client.common.utility.Utils;
 import com.chavaillaz.client.jenkins.JenkinsAuthentication;
 import com.chavaillaz.client.jenkins.api.JobApi;
 import com.chavaillaz.client.jenkins.domain.folder.Folder;
@@ -23,6 +22,7 @@ import com.chavaillaz.client.jenkins.domain.job.test.CoverageReport;
 import com.chavaillaz.client.jenkins.domain.job.test.TestReport;
 import com.chavaillaz.client.jenkins.domain.view.ViewCreation;
 import com.chavaillaz.client.jenkins.domain.view.ViewInfo;
+import com.chavaillaz.client.jenkins.utility.Utils;
 import io.vertx.ext.web.client.WebClient;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -60,31 +60,31 @@ public class VertxHttpJobApi extends AbstractVertxHttpClient implements JobApi {
     @Override
     public CompletableFuture<String> getFolderConfiguration(Path path) {
         return handleAsync(requestBuilder(GET, URL_FOLDER_CONFIGURATION, path).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobConfiguration(Path path, String jobName) {
         return handleAsync(requestBuilder(GET, URL_JOB_CONFIGURATION, path, jobName).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getViewConfiguration(Path path, String viewName) {
         return handleAsync(requestBuilder(GET, URL_VIEW_CONFIGURATION, path, viewName).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getJobDescription(Path path, String jobName) {
         return handleAsync(requestBuilder(GET, URL_JOB_DESCRIPTION, path, jobName).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<Integer> getLastBuildNumber(Path path, String jobName) {
         return handleAsync(requestBuilder(GET, URL_JOB_LAST_BUILD_NUMBER, path, jobName).send())
-                .thenApply(Utils::readInputStream)
+                .thenApply(Utils::uncheckReadInputStream)
                 .thenApply(NumberUtils::toInt)
                 .exceptionally(exception -> null);
     }
@@ -114,13 +114,13 @@ public class VertxHttpJobApi extends AbstractVertxHttpClient implements JobApi {
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int bufferOffset) {
         return handleAsync(requestBuilder(GET, URL_JOB_LAST_BUILD_CONSOLE, path, jobName, bufferOffset).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
     public CompletableFuture<String> getConsoleOutput(Path path, String jobName, int buildNumber, int bufferOffset) {
         return handleAsync(requestBuilder(GET, URL_JOB_BUILD_CONSOLE, path, jobName, buildNumber, bufferOffset).send())
-                .thenApply(Utils::readInputStream);
+                .thenApply(Utils::uncheckReadInputStream);
     }
 
     @Override
