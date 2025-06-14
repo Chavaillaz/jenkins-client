@@ -26,11 +26,12 @@ using [Jackson][Jackson].
 Presently, it supports the following HTTP clients:
 
 - [Java HTTP client][JavaHttp] (included since Java 11)
-- [Apache HTTP client][ApacheHttp] 5.2
-- [OkHttp client][OkHttp] 4.11
+- [Apache HTTP client][ApacheHttp] 5.5
+- [OkHttp client][OkHttp] 4.12
 - [Vert.x client][Vertx] 4.5
 
-Note that this library has been tested with a [Jenkins instance version 2.426.1][Jenkins].
+Note that this library requires at least **Java 17** and has been tested with
+a [Jenkins instance version 2.426.1][Jenkins].
 
 ## Installation
 
@@ -44,7 +45,7 @@ The dependency is available in maven central (see badge for version):
 ```
 
 Don't forget to also declare the HTTP client you want to use as a dependency (see below), as it is only indicated as
-optional in the project, to avoid gathering them all together despite the fact that only one is needed.
+optional in the project, to avoid gathering them all although only one is needed.
 
 ### Java HTTP client
 
@@ -172,32 +173,32 @@ Below an example for each HTTP client:
 
 ```java
 JenkinsClient client = JenkinsClient.javaClient("https://jenkins.mycompany.com")
-    .withUserAuthentication("myUsername","myPassword")
-    .withProxy("http://proxy.mycompany.com:1234");
+        .withUserAuthentication("myUsername", "myPassword")
+        .withProxy("http://proxy.mycompany.com:1234");
 ```
 
 - [ApacheHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/apache/ApacheHttpJenkinsClient.java)
 
 ```java
 JenkinsClient client = JenkinsClient.apacheClient("https://jenkins.mycompany.com")
-    .withUserAuthentication("myUsername","myPassword")
-    .withProxy("http://proxy.mycompany.com:1234");
+        .withUserAuthentication("myUsername", "myPassword")
+        .withProxy("http://proxy.mycompany.com:1234");
 ```
 
 - [OkHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/okhttp/OkHttpJenkinsClient.java)
 
 ```java
 JenkinsClient client = JenkinsClient.okHttpClient("https://jenkins.mycompany.com")
-    .withUserAuthentication("myUsername","myPassword")
-    .withProxy("http://proxy.mycompany.com:1234");
+        .withUserAuthentication("myUsername", "myPassword")
+        .withProxy("http://proxy.mycompany.com:1234");
 ```
 
 - [VertxHttpJenkinsClient](src/main/java/com/chavaillaz/client/jenkins/vertx/VertxHttpJenkinsClient.java)
 
 ```java
 JenkinsClient client = JenkinsClient.vertxClient("https://jenkins.mycompany.com")
-    .withUserAuthentication("myUsername","myPassword")
-    .withProxy("http://proxy.mycompany.com:1234");
+        .withUserAuthentication("myUsername", "myPassword")
+        .withProxy("http://proxy.mycompany.com:1234");
 ```
 
 From this `JenkinsClient` you will then be able to get the desired APIs described in the [feature chapter](#features).
@@ -209,7 +210,7 @@ information depending on the Jenkins endpoint called. From this object, you can 
 
 ## Contributing
 
-If you have a feature request or found a bug, you can:
+If you have a feature request or have found a bug, you can:
 
 - Write an issue
 - Create a pull request
