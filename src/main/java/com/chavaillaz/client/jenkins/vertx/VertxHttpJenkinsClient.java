@@ -1,6 +1,7 @@
 package com.chavaillaz.client.jenkins.vertx;
 
 import static com.chavaillaz.client.common.vertx.VertxUtils.defaultWebClientOptions;
+import static io.vertx.core.Vertx.vertx;
 
 import com.chavaillaz.client.jenkins.AbstractJenkinsClient;
 import com.chavaillaz.client.jenkins.JenkinsClient;
@@ -19,6 +20,15 @@ import io.vertx.ext.web.client.WebClient;
 public class VertxHttpJenkinsClient extends AbstractJenkinsClient<WebClient> {
 
     protected final Vertx vertx;
+
+    /**
+     * Creates a new {@link JenkinsClient} with Vert.x client.
+     *
+     * @param jenkinsUrl The Jenkins URL
+     */
+    public VertxHttpJenkinsClient(String jenkinsUrl) {
+        this(vertx(), jenkinsUrl);
+    }
 
     /**
      * Creates a new {@link JenkinsClient} with Vert.x client.

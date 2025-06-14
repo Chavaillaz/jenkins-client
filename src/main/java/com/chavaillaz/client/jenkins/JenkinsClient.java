@@ -1,7 +1,5 @@
 package com.chavaillaz.client.jenkins;
 
-import static io.vertx.core.Vertx.vertx;
-
 import com.chavaillaz.client.common.Client;
 import com.chavaillaz.client.jenkins.apache.ApacheHttpJenkinsClient;
 import com.chavaillaz.client.jenkins.api.JobApi;
@@ -51,7 +49,7 @@ public interface JenkinsClient extends Client<JenkinsClient> {
      * @param jenkinsUrl The Jenkins URL
      */
     static VertxHttpJenkinsClient vertxClient(String jenkinsUrl) {
-        return new VertxHttpJenkinsClient(vertx(), jenkinsUrl);
+        return new VertxHttpJenkinsClient(jenkinsUrl);
     }
 
     /**
